@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sofia y Hector//Boda 2026//ES
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:boda-20261107@sofia-hector
+DTSTAMP:20260914T120000Z
+DTSTART:20261108T000000Z
+DTEND:20261108T090000Z
+SUMMARY:Boda de Sofía y Héctor
+LOCATION:Parroquia María Reina del Universo\, Ciudad Juárez
+DESCRIPTION:Ceremonia: 5:00 p.m.\nRecepción: 9:00 p.m. en Jardín
+ Terraza Arjeri.\nVestimenta formal.
+END:VEVENT
+END:VCALENDAR

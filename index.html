@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sofía y Héctor · 7 de noviembre de 2026 · Ciudad Juárez. Acompáñanos a celebrar nuestra boda.">
+<meta name="theme-color" content="#171d18">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src https://www.google.com; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <title>Sofía &amp; Héctor · Invitación de Boda · 7 de noviembre 2026</title>
 
 <meta property="og:title" content="Sofía & Héctor · 7 de noviembre 2026">
@@ -13,530 +19,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 
-<style>
-:root{
-  --gold:#c9a227;
-  --gold-soft:#e3c56b;
-  --gold-glow:rgba(201,162,39,.35);
-  --wax:#6e1f2a;
-  --wax-light:#8c2b38;
-  --olivo:#6b7a4f;
-  --olivo-light:#8fa06a;
-  --olivo-dark:#3a4529;
-  --ink:#0b0b0c;
-  --ink-2:#141416;
-  --paper:#f6efe2;
-  --paper-2:#ece1cd;
-  --paper-ink:#2a241c;
-  --gold-ink:#9a7a17;
-  --cream:#fbf6ee;
-  --cream-dim:rgba(251,246,238,.72);
-  --hair:rgba(201,162,39,.22);
-  --maxw:1080px;
-}
-
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Montserrat',system-ui,sans-serif;
-  background:var(--ink);
-  color:var(--cream);
-  line-height:1.65;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-body.locked{overflow:hidden;height:100svh}
-a{color:inherit}
-img{max-width:100%;display:block}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
-
-/* ---------- helpers ---------- */
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem}
-.eyebrow{
-  font-size:.72rem;font-weight:600;letter-spacing:.34em;text-transform:uppercase;
-  color:var(--gold);
-}
-.display{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;line-height:1.12}
-.script{font-family:'Pinyon Script',cursive}
-.rule{height:1px;background:linear-gradient(90deg,transparent,var(--hair),transparent);margin:2.5rem 0}
-.center{text-align:center}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
-.reveal.on{opacity:1;transform:none}
-
-/* ---------- 1. SOBRE + CARTA (pantalla de apertura) ---------- */
-#gate{
-  position:fixed;inset:0;z-index:100;
-  display:grid;place-items:center;padding:1.2rem;
-  background:
-    radial-gradient(ellipse at 50% 38%,#1e1e22 0%,#0b0b0c 64%),
-    var(--ink);
-  transition:opacity .9s ease,visibility .9s ease;
-}
-#gate.gone{opacity:0;visibility:hidden;pointer-events:none}
-.stage{display:grid;place-items:center;width:100%}
-.stage > *{grid-area:1/1}
-.env-col{
-  display:flex;flex-direction:column;align-items:center;
-  gap:clamp(1.4rem,4vh,2.2rem);
-  transition:opacity .7s ease,transform .9s cubic-bezier(.5,0,.4,1);
-}
-
-.gate-hint{text-align:center;transition:opacity .5s ease}
-.gate-hint p{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);margin-top:.9rem}
-.open-btn{
-  background:none;border:1px solid var(--gold);color:var(--gold);
-  font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:500;
-  letter-spacing:.28em;text-transform:uppercase;
-  padding:.9rem 2.2rem;border-radius:999px;cursor:pointer;
-  transition:background .35s ease,color .35s ease,transform .35s ease;
-}
-.open-btn:hover{background:var(--gold);color:var(--ink);transform:translateY(-2px)}
-#gate.opening .gate-hint{opacity:0}
-
-.scene{
-  perspective:1500px;perspective-origin:50% 42%;
-  width:min(94vw,560px);
-  animation:flotar 7s ease-in-out infinite;
-}
-@keyframes flotar{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
-/* capa que se inclina: separada de .envelope para no pelearse con la animación de apertura */
-.env3d{
-  --ex:7deg;--ey:-8deg;
-  transform-style:preserve-3d;
-  transform:rotateX(var(--ex)) rotateY(var(--ey));
-  transition:transform .8s cubic-bezier(.2,.7,.3,1);
-}
-#gate.opening .env3d{transform:rotateX(3deg) rotateY(-3deg)}
-.envelope{
-  position:relative;width:100%;aspect-ratio:1.45/1;
-  transform-style:preserve-3d;
-  transition:transform 1s cubic-bezier(.7,0,.3,1),opacity .8s ease;
-}
-.env-body{
-  position:absolute;inset:0;border-radius:6px;
-  background:linear-gradient(160deg,var(--paper) 0%,var(--paper-2) 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.75),
-    inset 0 -2px 6px rgba(90,70,35,.14),
-    0 2px 0 -1px #e2d5bb,
-    0 5px 0 -2px #d3c5a6,
-    0 8px 0 -3px #c4b593,
-    0 34px 70px rgba(0,0,0,.68),
-    0 60px 100px -30px rgba(0,0,0,.8);
-}
-.letter{
-  position:absolute;left:5%;top:6%;width:90%;height:88%;
-  background:linear-gradient(178deg,#fffdf8,#f4ecdd);
-  border-radius:3px;z-index:2;
-  transform:translateZ(5px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;
-  color:var(--paper-ink);text-align:center;padding:1rem;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    1px 2px 0 -1px #f3ead8,
-    3px 5px 0 -2px #e9dfc9,
-    0 6px 18px rgba(0,0,0,.28);
-  transition:transform 1.1s cubic-bezier(.65,0,.35,1) .55s;
-}
-.letter .l-top{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:#8a7a5c}
-.letter .l-names{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,7vw,2.4rem);font-weight:400}
-.letter .l-amp{font-family:'Pinyon Script',cursive;color:var(--wax);font-size:1.4em;line-height:.8}
-.letter .l-date{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:#8a7a5c}
-/* frente del sobre: solapas laterales e inferior */
-.env-front{position:absolute;inset:0;z-index:3;pointer-events:none;transform:translateZ(14px)}
-.env-front i{position:absolute;inset:0;display:block}
-/* la luz entra por arriba-izquierda: cada plano doblado recibe distinta cantidad */
-.env-front .left{background:linear-gradient(115deg,#f9f2e2,#e9ddc6);clip-path:polygon(0 0,52% 50%,0 100%)}
-.env-front .right{background:linear-gradient(245deg,#ddceb0,#c9b995);clip-path:polygon(100% 0,48% 50%,100% 100%)}
-.env-front .bottom{background:linear-gradient(0deg,#eee5d1,#e0d3b9);clip-path:polygon(0 100%,50% 46%,100% 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
-.env-flap{
-  position:absolute;left:0;top:0;width:100%;height:52%;
-  background:linear-gradient(180deg,#f6eedd,#e4d8be 68%,#d6c7a7);
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  transform-origin:top center;
-  transform:rotateX(0deg) translateZ(15px);
-  filter:drop-shadow(0 6px 8px rgba(0,0,0,.3));
-  transition:transform 1.05s cubic-bezier(.6,0,.4,1);
-  z-index:5;
-}
-.wax{
-  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) translateZ(21px);
-  width:clamp(60px,17%,96px);aspect-ratio:1;border-radius:50%;z-index:6;
-  background:radial-gradient(circle at 34% 30%,var(--olivo-light),var(--olivo) 60%,var(--olivo-dark) 100%);
-  box-shadow:0 6px 16px rgba(0,0,0,.45),inset 0 0 12px rgba(0,0,0,.32);
-  display:grid;place-items:center;
-  transition:transform .45s ease,opacity .45s ease;
-}
-.wax::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(243,236,216,.4)}
-/* iniciales grabadas en la cera: serif ancha para que se lean de lejos */
-.wax span{
-  display:flex;align-items:baseline;
-  font-family:'Cormorant Garamond',serif;font-weight:600;
-  font-size:clamp(1.3rem,3.7vw,1.95rem);letter-spacing:.02em;line-height:1;
-  color:#f7f2e2;text-shadow:0 1px 1px rgba(0,0,0,.45),0 -1px 0 rgba(255,255,255,.18);
-}
-.wax span i{font-family:'Pinyon Script',cursive;font-style:normal;font-size:.66em;opacity:.85;margin:0 .07em}
-/* estado abierto */
-/* la solapa gira y el translateZ, al ir después del giro, la manda hacia atrás del sobre */
-#gate.opening .env-flap{transform:rotateX(-172deg) translateZ(15px);filter:none;z-index:1}
-#gate.opening .wax{opacity:0;transform:translate(-50%,-50%) scale(.6) rotate(-25deg) translateZ(21px)}
-#gate.opening .letter{transform:translateY(-58%) scale(1.04) translateZ(5px)}
-#gate.opening .envelope{transform:translateY(6%) scale(.97)}
-
-/* --- fase 2: la carta se puede leer --- */
-.card{
-  position:relative;
-  width:min(92vw,430px);
-  perspective:1200px;
-  perspective-origin:50% 38%;
-  opacity:0;
-  transform:perspective(1200px) translateY(46px) rotateX(13deg) scale(.93);
-  pointer-events:none;
-  transition:opacity .9s ease .25s,transform 1.15s cubic-bezier(.16,.84,.24,1) .25s;
-}
-.paper{
-  --tx:0deg;--ty:0deg;--lx:28%;--ly:8%;
-  position:relative;
-  max-height:86svh;overflow-y:auto;
-  padding:clamp(2.2rem,7vw,3.2rem) clamp(1.5rem,5.5vw,2.6rem);
-  border-radius:4px;
-  color:var(--paper-ink);text-align:center;
-  transform:rotateX(var(--tx)) rotateY(var(--ty));
-  transition:transform .55s cubic-bezier(.2,.7,.3,1);
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E") 0 0/150px 150px,
-    radial-gradient(115% 85% at var(--lx) var(--ly),rgba(255,255,255,.95),rgba(255,255,255,0) 58%),
-    linear-gradient(168deg,#fdf7ea 0%,#f6ecd9 45%,#eadcc2 100%);
-  background-blend-mode:multiply,screen,normal;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.95),
-    inset 0 -1px 0 rgba(0,0,0,.08),
-    inset 0 0 0 1px rgba(120,96,48,.10),
-    2px 3px 0 -1px #f2e9d7,
-    4px 7px 0 -2px #e8dcc4,
-    7px 11px 0 -3px #dbcdb0,
-    0 12px 22px -10px rgba(0,0,0,.6),
-    0 40px 80px -18px rgba(0,0,0,.7),
-    0 72px 120px -40px rgba(0,0,0,.85);
-}
-.paper::before{
-  content:"";position:absolute;inset:9px;pointer-events:none;
-  border:1px solid rgba(110,31,42,.16);
-}
-#gate.reading .env-col{opacity:0;transform:translateY(26px) scale(.9);pointer-events:none}
-#gate.reading .card{opacity:1;transform:none;pointer-events:auto}
-#gate.leaving .card{
-  opacity:0;transform:perspective(1200px) translateY(-78px) rotateX(-9deg) scale(.96);
-  transition:opacity .6s ease,transform .7s cubic-bezier(.5,0,.75,0);
-}
-
-.card .c-orn{font-family:'Pinyon Script',cursive;font-size:1.9rem;color:var(--wax);opacity:.55;line-height:1}
-.card .c-lab{margin-top:.7rem;font-size:.62rem;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-ink)}
-.card .c-names{
-  font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.05;
-  font-size:clamp(2.5rem,11vw,3.5rem);margin:.7rem 0 0;
-}
-.card .c-amp{display:block;font-family:'Pinyon Script',cursive;color:var(--wax);font-size:.44em;line-height:1;margin:.06em 0}
-.card .c-rule{width:52px;height:1px;background:rgba(110,31,42,.3);margin:1.5rem auto}
-.card .c-date{font-size:.68rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--paper-ink)}
-.card .c-where{margin-top:1.2rem;display:grid;gap:.55rem}
-.card .c-where p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:1.4;color:#4a4034}
-.card .c-where strong{font-weight:600}
-.card .c-verse{
-  margin-top:1.6rem;font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:.98rem;line-height:1.55;color:#6a5c48;
-}
-.card .c-ref{margin-top:.5rem;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--wax)}
-.enter-btn{
-  margin-top:2rem;width:100%;
-  display:flex;flex-direction:column;align-items:center;gap:.55rem;
-  background:none;border:none;cursor:pointer;color:var(--gold-ink);
-  font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:600;
-  letter-spacing:.26em;text-transform:uppercase;
-}
-.enter-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;animation:nudge 2s ease-in-out infinite}
-.enter-btn:hover{color:var(--wax)}
-@keyframes nudge{0%,100%{transform:translateY(3px);opacity:.55}50%{transform:translateY(-3px);opacity:1}}
-
-/* ---------- 2. HERO ---------- */
-.hero{position:relative;min-height:100svh;display:grid;place-items:center;overflow:hidden;isolation:isolate}
-.hero-media{position:absolute;inset:0;z-index:-2}
-.hero-media img{width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.9)}
-.hero-media .ph{
-  width:100%;height:100%;
-  background:
-    radial-gradient(ellipse at 30% 20%,#26262b,#0e0e10 70%),
-    var(--ink);
-  display:grid;place-items:center;
-}
-.hero-media .ph span{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(251,246,238,.35)}
-.hero::after{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(11,11,12,.45),rgba(11,11,12,.55) 45%,rgba(11,11,12,.96));
-}
-.hero-inner{text-align:center;padding:5rem 1.5rem}
-.hero-names{font-size:clamp(3.1rem,13vw,7rem);margin:1.4rem 0 .2rem}
-.hero-names .amp{display:block;font-family:'Pinyon Script',cursive;color:var(--gold);font-size:.42em;line-height:1;margin:.15em 0}
-.hero-date{
-  display:inline-flex;align-items:center;gap:1rem;margin-top:1.8rem;
-  font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);
-}
-.hero-date::before,.hero-date::after{content:"";width:34px;height:1px;background:var(--hair)}
-.hero-sub{margin-top:1.6rem;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--cream-dim)}
-.scroll-cue{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);color:var(--gold);animation:cue 2.4s ease-in-out infinite}
-.scroll-cue svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.5}
-@keyframes cue{0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(9px);opacity:1}}
-
-/* ---------- secciones ---------- */
-section{position:relative}
-.pad{padding:6rem 0}
-.pad-sm{padding:4.5rem 0}
-.sec-title{font-size:clamp(1.9rem,5.5vw,2.9rem);margin-bottom:.6rem}
-.sec-title em{font-style:italic;color:var(--gold)}
-.sec-lead{color:var(--cream-dim);max-width:46ch;margin:0 auto}
-
-/* versículo — bloque de papel */
-.verse{background:linear-gradient(180deg,var(--paper),var(--paper-2));color:var(--paper-ink)}
-.verse .quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.35rem,3.4vw,2rem);line-height:1.6;max-width:24ch;margin:0 auto}
-.verse .ref{margin-top:1.4rem;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--wax)}
-.verse .flourish{font-family:'Pinyon Script',cursive;font-size:2.2rem;color:var(--wax);opacity:.5;line-height:1}
-
-/* countdown */
-.count{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:2.6rem}
-.count-item{
-  min-width:96px;padding:1.25rem 1.2rem;border:1px solid var(--hair);border-radius:10px;
-  background:linear-gradient(160deg,rgba(201,162,39,.09),rgba(201,162,39,.02));
-}
-.count-num{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,7vw,3.2rem);font-weight:500;color:var(--gold-soft);line-height:1}
-.count-lab{margin-top:.4rem;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim)}
-/* cuenta regresiva cumplida */
-.count-done{
-  display:none;font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(1.25rem,4.2vw,1.8rem);line-height:1.5;color:var(--gold-soft);
-  max-width:28ch;margin:2.4rem auto 0;
-}
-.count-done.on{display:block}
-
-/* itinerario / lugares */
-.venues{display:grid;gap:2.5rem;margin-top:3rem}
-@media(min-width:860px){.venues{grid-template-columns:1fr 1fr;gap:3rem}}
-.venue{border-top:1px solid var(--hair);padding-top:1.6rem}
-.venue .when{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
-.venue h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.85rem;margin:.45rem 0 .1rem}
-.venue .addr{font-size:.9rem;color:var(--cream-dim)}
-.map{margin-top:1.2rem;border:1px solid var(--hair);border-radius:12px;overflow:hidden;background:#111}
-.map iframe{display:block;width:100%;height:230px;border:0;filter:grayscale(.75) contrast(1.05);transition:filter .4s ease}
-.map:hover iframe{filter:grayscale(.2) contrast(1.05)}
-.venue .links{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
-
-/* botones */
-.btn{
-  display:inline-flex;align-items:center;gap:.6rem;
-  padding:.85rem 1.7rem;border-radius:999px;cursor:pointer;
-  font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:600;
-  letter-spacing:.18em;text-transform:uppercase;text-decoration:none;
-  border:1px solid var(--gold);background:none;color:var(--gold);
-  transition:background .3s ease,color .3s ease,transform .3s ease,box-shadow .3s ease;
-}
-.btn:hover{background:var(--gold);color:var(--ink);transform:translateY(-2px)}
-.btn.solid{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:var(--ink)}
-.btn.solid:hover{box-shadow:0 12px 34px var(--gold-glow)}
-.btn.ghost{border-color:var(--hair);color:var(--cream-dim)}
-.btn.ghost:hover{background:none;border-color:var(--gold);color:var(--gold)}
-.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7}
-.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}
-
-/* dress code */
-.dress{display:grid;gap:1.6rem;justify-items:center}
-.dress .swatches{display:flex;gap:.6rem;margin-top:.4rem}
-.dress .sw{width:34px;height:34px;border-radius:50%;border:1px solid rgba(251,246,238,.2)}
-.dress .note{font-size:.85rem;color:var(--cream-dim);max-width:40ch;text-align:center}
-
-/* línea de tiempo */
-.timeline{position:relative;max-width:620px;margin:3rem auto 0;padding-left:2rem}
-.timeline::before{
-  content:"";position:absolute;left:5px;top:.6rem;bottom:.6rem;width:1px;
-  background:linear-gradient(180deg,transparent,var(--hair) 10%,var(--hair) 90%,transparent);
-}
-.tl-item{position:relative;padding-bottom:2.3rem}
-.tl-item:last-child{padding-bottom:0}
-.tl-item::before{
-  content:"";position:absolute;left:-2rem;top:.42rem;width:11px;height:11px;box-sizing:border-box;
-  border-radius:50%;background:var(--ink);border:1px solid var(--gold);
-}
-.tl-item:last-child::before{background:var(--gold);box-shadow:0 0 0 5px var(--gold-glow)}
-.tl-year{font-size:.64rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
-.tl-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;margin:.2rem 0 .35rem;line-height:1.2}
-.tl-item:last-child .tl-title{color:var(--gold-soft)}
-.tl-text{font-size:.9rem;color:var(--cream-dim);max-width:46ch}
-
-/* galería */
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:2.5rem}
-.shot{position:relative;aspect-ratio:4/5;border:1px solid var(--hair);border-radius:10px;overflow:hidden;background:#151517}
-.shot img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
-.shot:hover img{transform:scale(1.04)}
-.shot .cap{
-  position:absolute;left:0;right:0;bottom:0;padding:2.2rem .95rem .85rem;
-  background:linear-gradient(0deg,rgba(11,11,12,.88),rgba(11,11,12,.4) 55%,transparent);
-  font-size:.6rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);
-}
-.shot .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:1rem;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(251,246,238,.3)}
-
-/* RSVP */
-.rsvp{background:linear-gradient(180deg,var(--ink),var(--ink-2))}
-.form-card{
-  max-width:560px;margin:2.6rem auto 0;padding:2rem;
-  border:1px solid var(--hair);border-radius:16px;
-  background:linear-gradient(160deg,rgba(201,162,39,.06),rgba(255,255,255,.015));
-}
-.field{margin-bottom:1.35rem}
-.field label{display:block;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
-.field input,.field select,.field textarea{
-  width:100%;padding:.85rem 1rem;border-radius:8px;
-  border:1px solid rgba(251,246,238,.16);background:rgba(0,0,0,.35);
-  color:var(--cream);font-family:'Montserrat',sans-serif;font-size:.95rem;
-}
-.field textarea{resize:vertical;min-height:78px}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);outline:none}
-.field .hint{margin-top:.4rem;font-size:.72rem;color:rgba(251,246,238,.5)}
-.choice{display:flex;gap:.6rem}
-.choice label{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;
-  padding:.8rem;border:1px solid rgba(251,246,238,.16);border-radius:8px;cursor:pointer;
-  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim);
-  margin:0;transition:all .25s ease;
-}
-.choice input{position:absolute;opacity:0;pointer-events:none}
-.choice input:checked + span{color:var(--ink)}
-.choice label:has(input:checked){background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:600}
-.form-msg{margin-top:1rem;font-size:.85rem;min-height:1.2em}
-.form-msg.err{color:#e88f8f}
-.form-msg.ok{color:var(--gold-soft)}
-
-/* aviso de que ya confirmaste (pase guardado en este celular) */
-.rsvp-back{
-  display:none;max-width:560px;margin:2.6rem auto 0;padding:1.6rem;text-align:center;
-  border:1px solid var(--hair);border-radius:16px;
-  background:linear-gradient(160deg,rgba(201,162,39,.09),rgba(255,255,255,.015));
-}
-.rsvp-back.on{display:block}
-.rsvp-back .rb-lab{font-size:.62rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
-.rsvp-back h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.7rem;margin:.5rem 0 .45rem}
-.rsvp-back p{font-size:.88rem;color:var(--cream-dim);max-width:40ch;margin:0 auto}
-.rsvp-back button{
-  margin-top:1.2rem;background:none;border:none;cursor:pointer;color:rgba(251,246,238,.45);
-  font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:500;
-  letter-spacing:.18em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;
-}
-.rsvp-back button:hover{color:var(--gold)}
-
-/* pase digital */
-.pass-wrap{max-width:420px;margin:2.6rem auto 0;display:none}
-.pass-wrap.show{display:block;animation:passIn .7s ease}
-@keyframes passIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
-.pass{
-  position:relative;border-radius:18px;overflow:hidden;
-  background:linear-gradient(165deg,#17171a,#0c0c0e 70%);
-  border:1px solid var(--hair);
-  box-shadow:0 26px 60px rgba(0,0,0,.6);
-}
-.pass-top{padding:1.6rem 1.6rem 1.2rem;text-align:center;border-bottom:1px dashed rgba(201,162,39,.3)}
-.pass-top .p-lab{font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
-.pass-top .p-names{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;margin-top:.35rem}
-.pass-top .p-names span{font-family:'Pinyon Script',cursive;color:var(--gold);}
-.pass-body{padding:1.4rem 1.6rem 1.7rem;display:grid;gap:1.1rem}
-.p-row{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
-.p-key{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(251,246,238,.45)}
-.p-val{font-family:'Cormorant Garamond',serif;font-size:1.15rem;text-align:right}
-.p-val.big{color:var(--gold-soft);font-size:1.5rem}
-.p-qr{display:grid;place-items:center;gap:.6rem;padding-top:.4rem}
-.p-qr .qbox{background:#fff;padding:9px;border-radius:8px;line-height:0}
-.p-qr .folio{font-size:.68rem;letter-spacing:.24em;color:var(--gold)}
-.p-qr .scan{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(251,246,238,.4)}
-.pass-actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;margin-top:1.4rem}
-
-/* faq */
-.faq{max-width:660px;margin:2.4rem auto 0;display:grid;gap:.6rem}
-.faq details{border:1px solid var(--hair);border-radius:10px;padding:1rem 1.2rem;background:rgba(255,255,255,.015)}
-.faq summary{cursor:pointer;font-size:.95rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--gold);font-size:1.2rem;line-height:1}
-.faq details[open] summary::after{content:"–"}
-.faq p{margin-top:.8rem;font-size:.9rem;color:var(--cream-dim)}
-
-/* footer */
-footer{padding:4rem 1.5rem 3rem;text-align:center;border-top:1px solid var(--hair)}
-footer .sig{font-family:'Pinyon Script',cursive;font-size:2.4rem;color:var(--gold)}
-footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cream-dim)}
-
-/* ---------- móvil ---------- */
-@media (max-width:600px){
-  /* formato cuadrado tipo sobre de invitación: aprovecha la altura del celular */
-  .envelope{aspect-ratio:1.16/1}
-  .card{width:94vw}
-  .paper{max-height:88svh;padding:2.1rem 1.4rem}
-  .card .c-where p{font-size:1rem}
-  .card .c-verse{font-size:.92rem}
-  .wrap{padding:0 1.15rem}
-  .pad{padding:4.2rem 0}
-  .pad-sm{padding:3.4rem 0}
-
-  /* evita el zoom automático de iOS al enfocar un campo */
-  .field input,.field select,.field textarea{font-size:16px;padding:.8rem .9rem}
-  .form-card{padding:1.4rem}
-  .choice label{font-size:.66rem;letter-spacing:.08em;padding:.85rem .5rem;text-align:center}
-
-  .hero-date{flex-direction:column;gap:.85rem;letter-spacing:.22em;font-size:.7rem;line-height:1.4}
-  .hero-date::before,.hero-date::after{width:46px}
-  .hero-inner{padding:4rem 1.2rem}
-
-  .count{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;max-width:340px;margin-left:auto;margin-right:auto}
-  .count-item{min-width:0;padding:1.1rem .8rem}
-
-  .venues{gap:2rem}
-  .map iframe{height:200px}
-  .venue .links .btn{width:100%;justify-content:center}
-
-  .timeline{padding-left:1.7rem}
-  .tl-item::before{left:-1.7rem}
-  .tl-title{font-size:1.35rem}
-
-  .gallery{grid-template-columns:1fr;gap:.9rem}
-  .shot .ph{font-size:.56rem;letter-spacing:.12em}
-
-  .pass-actions .btn{width:100%;justify-content:center}
-  .p-val{font-size:1.05rem}
-  .faq summary{font-size:.9rem}
-  .btn{padding:.85rem 1.35rem;font-size:.68rem;letter-spacing:.14em}
-  .open-btn{padding:.85rem 1.7rem;font-size:.7rem;letter-spacing:.22em}
-}
-
-/* pantallas muy angostas: 3 columnas de countdown se ven apretadas, y el sobre necesita aire */
-@media (max-width:360px){
-  .scene{width:96vw}
-  .hero-names{font-size:2.8rem}
-  .count-num{font-size:1.9rem}
-}
-
-/* celular acostado o pantallas de poca altura: que el sobre no se salga */
-@media (max-height:560px){
-  .scene{width:min(calc(72vh * 1.45),560px)}
-  #gate{gap:1rem}
-}
-
-@media (prefers-reduced-motion:reduce){
-  *{animation:none !important;transition-duration:.01ms !important}
-  .reveal{opacity:1;transform:none}
-}
-</style>
+<link rel="stylesheet" href="assets/styles.css">
 </head>
-<body class="locked">
+<body>
+<noscript><p class="nojs-note">Puedes consultar todos los detalles aquí. Para confirmar tu asistencia, activa JavaScript y vuelve a cargar la página.</p></noscript>
 
 <!-- ============ SOBRE ============ -->
-<div id="gate">
+<div id="gate" hidden role="dialog" aria-modal="true" aria-label="Invitación de Sofía y Héctor">
+  <button type="button" class="gate-skip" id="skipGate">Ir a los detalles ↗</button>
+  <figure class="gate-photo">
+    <img src="assets/fotos_web/portada.jpg"
+         srcset="assets/fotos_web/portada-800.jpg 800w, assets/fotos_web/portada.jpg 1600w"
+         sizes="(max-width:760px) 100vw, 58vw" width="1600" height="1068"
+         alt="Sofía y Héctor compartiendo un café, sentados en la barra" fetchpriority="high">
+  </figure>
   <div class="stage">
 
     <div class="env-col">
+      <div class="gate-intro">
+        <p class="eyebrow">07 · 11 · 2026</p>
+        <h2 class="display">Una invitación<br><em>para ti</em></h2>
+      </div>
       <div class="scene">
        <div class="env3d" id="env3d">
         <div class="envelope" id="envelope">
@@ -562,7 +65,7 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
       <div class="paper">
         <p class="c-orn">&#10086;</p>
         <p class="c-lab">Nos casamos</p>
-        <h1 class="c-names">Sofía<span class="c-amp">&amp;</span>Héctor</h1>
+        <h2 class="c-names">Sofía<span class="c-amp">&amp;</span>Héctor</h2>
         <div class="c-rule"></div>
         <p class="c-date">Sábado 7 de noviembre de 2026</p>
         <div class="c-where">
@@ -573,7 +76,7 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
         <p class="c-ref">Efesios 5:25</p>
         <button class="enter-btn" id="enterBtn">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M5 12l7-7 7 7"/></svg>
-          Desliza para entrar
+          Ver nuestra invitación
         </button>
       </div>
     </div>
@@ -581,22 +84,31 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
   </div>
 </div>
 
+<div id="siteContent">
+<a class="skip-link" href="#inicio">Saltar al contenido</a>
+<header class="site-header">
+  <a class="monogram" href="#inicio" aria-label="Sofía y Héctor, inicio">S<span>&amp;</span>H</a>
+  <nav aria-label="Navegación principal">
+    <a href="#historia">Nosotros</a><a href="#lugares">El gran día</a><a class="nav-rsvp" href="#rsvp">Confirmar <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
+<main>
 <!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero-media">
-    <!-- Cuando tengas la foto, borra el div .ph y descomenta el <img> -->
-    <!-- <img src="fotos/portada.jpg" alt="Sofía y Héctor"> -->
-    <div class="ph"><span>fotos/portada.jpg</span></div>
-  </div>
+<section class="hero" id="inicio" tabindex="-1" aria-labelledby="heroTitle">
   <div class="hero-inner">
-    <p class="eyebrow">Nuestra boda</p>
-    <h1 class="display hero-names">Sofía<span class="amp">&amp;</span>Héctor</h1>
-    <p class="hero-date">Sábado 7 de noviembre de 2026</p>
-    <p class="hero-sub">Ciudad Juárez, Chihuahua</p>
+    <p class="eyebrow">Con amor, para ti</p>
+    <h1 class="display hero-names" id="heroTitle">Sofía<span class="amp">&amp;</span>Héctor</h1>
+    <p class="hero-sub">Toda una vida por compartir.<br>Y un día para celebrarlo contigo.</p>
+    <div class="hero-date"><span>07</span><div>Noviembre<br><strong>2026</strong></div></div>
+    <p class="hero-location">Sábado · Ciudad Juárez, Chihuahua</p>
+    <a class="btn solid" href="#rsvp">Confirmar asistencia <span aria-hidden="true">↗</span></a>
   </div>
-  <div class="scroll-cue" aria-hidden="true">
-    <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
+  <figure class="hero-portrait">
+    <div class="portrait-frame"><img src="assets/fotos_web/foto_principal_inicio_pagina.jpg" srcset="assets/fotos_web/foto_principal_inicio_pagina-800.jpg 533w, assets/fotos_web/foto_principal_inicio_pagina.jpg 1066w" sizes="(max-width:760px) 75vw, 460px" alt="Sofía y Héctor juntos en la barra del café" width="1066" height="1600" fetchpriority="high" decoding="async"></div>
+    <figcaption>El comienzo de nuestro para siempre</figcaption>
+    <span class="portrait-stamp" aria-hidden="true">S &amp; H<br><small>07.11.26</small></span>
+  </figure>
+  <a class="hero-discover" href="#historia">Nuestra historia <span aria-hidden="true">↓</span></a>
 </section>
 
 <!-- ============ VERSÍCULO ============ -->
@@ -608,9 +120,29 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
   </div>
 </section>
 
+<!-- ============ PADRES ============ -->
+<section class="pad-sm">
+  <div class="wrap center reveal">
+    <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.3 0-.6-.1-.8-.3C7.9 17.7 3 13.6 3 9.3 3 6.4 5.3 4 8.2 4c1.7 0 3.1.8 3.8 2 .7-1.2 2.1-2 3.8-2 2.9 0 5.2 2.4 5.2 5.3 0 4.3-4.9 8.4-8.2 10.7-.2.2-.5.3-.8.3z"/></svg></div>
+    <p class="eyebrow">Con la bendición de</p>
+    <h2 class="display sec-title">Nuestros <em>padres</em></h2>
+    <div class="parents">
+      <div class="parent-group">
+        <p class="pg-label">Padres del novio</p>
+        <p class="pg-names">Araceli Ruiz Flores<span class="pg-amp">&amp;</span>Martin Rodrigo Richart Garcia</p>
+      </div>
+      <div class="parent-group">
+        <p class="pg-label">Padres de la novia</p>
+        <p class="pg-names">Alma Delia Palacios Alvidrez<span class="pg-amp">&amp;</span>Jacobo Cisneros Rojas</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CUENTA REGRESIVA ============ -->
 <section class="pad-sm">
   <div class="wrap center reveal">
+    <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2.5h12M6 21.5h12M7 2.5c0 4.8 3 6 5 8-2 2-5 3.2-5 8M17 2.5c0 4.8-3 6-5 8 2 2 5 3.2 5 8"/></svg></div>
     <p class="eyebrow" id="cdEyebrow">Cuenta regresiva</p>
     <h2 class="display sec-title" id="cdTitle">Nos vemos en <em>poco</em></h2>
     <div class="count" id="cdBox">
@@ -624,9 +156,10 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
 </section>
 
 <!-- ============ LUGARES ============ -->
-<section class="pad">
+<section class="pad" id="lugares">
   <div class="wrap">
     <div class="center reveal">
+      <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="15" r="5"/><circle cx="15.5" cy="15" r="5"/><path d="M12 5.5l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3L8.8 8.7l2.3-.9.9-2.3z"/></svg></div>
       <p class="eyebrow">El día</p>
       <h2 class="display sec-title">Ceremonia y <em>recepción</em></h2>
       <p class="sec-lead">Dos momentos, el mismo día. Aquí tienes las direcciones y el mapa de cada uno.</p>
@@ -634,16 +167,16 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
 
     <div class="venues">
       <article class="venue reveal">
-        <p class="when">Ceremonia religiosa · 5:00 p.m.</p>
+        <p class="when"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v2.5M10.7 3.3h2.6"/><path d="M12 5l7.5 6.2h-2.2V21H6.7v-9.8H4.5L12 5z"/><path d="M9.8 21v-5.2a2.2 2.2 0 014.4 0V21"/></svg></span>Ceremonia religiosa · 5:00 p.m.</p>
         <h3>Parroquia María Reina del Universo</h3>
         <p class="addr">C. Lucero s/n, Fracc. Parajes del Sol,<br>32696 Juárez, Chihuahua</p>
         <div class="map">
           <iframe src="https://www.google.com/maps?q=31.6249084,-106.4143538&hl=es&z=16&output=embed"
                   title="Mapa de la Parroquia María Reina del Universo" loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  referrerpolicy="no-referrer"></iframe>
         </div>
         <div class="links">
-          <a class="btn ghost" target="_blank" rel="noopener"
+          <a class="btn ghost" target="_blank" rel="noopener noreferrer"
              href="https://www.google.com/maps/search/?api=1&query=31.6249084,-106.4143538">
             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Cómo llegar
@@ -652,16 +185,16 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
       </article>
 
       <article class="venue reveal">
-        <p class="when">Recepción · 9:00 p.m.</p>
+        <p class="when"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 3.2l2.6 7c.4 1.6 1.9 2.8 3.6 2.8"/><path d="M20 3.2l-2.6 7c-.4 1.6-1.9 2.8-3.6 2.8"/><path d="M10.9 13v6.3M13.1 13v6.3"/><path d="M8.3 21h7.4"/></svg></span>Recepción · 9:00 p.m.</p>
         <h3>Jardín Terraza Arjeri</h3>
         <p class="addr">Cam. Viejo a San José 4545, Las Arcadas,<br>32590 Juárez, Chihuahua</p>
         <div class="map">
           <iframe src="https://www.google.com/maps?q=31.6720967,-106.3812017&hl=es&z=16&output=embed"
                   title="Mapa del Jardín Terraza Arjeri" loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  referrerpolicy="no-referrer"></iframe>
         </div>
         <div class="links">
-          <a class="btn ghost" target="_blank" rel="noopener"
+          <a class="btn ghost" target="_blank" rel="noopener noreferrer"
              href="https://www.google.com/maps/search/?api=1&query=31.6720967,-106.3812017">
             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Cómo llegar
@@ -673,65 +206,65 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
     <div class="rule"></div>
 
     <div class="dress reveal">
+      <div class="dress-icons" aria-hidden="true">
+        <div class="icon-orn"><svg viewBox="0 0 24 24"><path d="M10.2 2.8h3.6l.7 3-1.3 1 1.6 1.5L18 21H6l3.2-12.7 1.6-1.5-1.3-1 .7-3z"/><path d="M9.1 6.3c1 1 1.9 1.5 2.9 1.5s1.9-.5 2.9-1.5"/></svg></div>
+        <div class="icon-orn"><svg viewBox="0 0 24 24"><path d="M9 2.8l3 2 3-2 2.2 2.3-2.4 2-1-.9-.5 1.1L14.6 21H9.4l1.3-13.7-.5-1.1-1 .9-2.4-2L9 2.8z"/><path d="M12 8.6l-1.1 3.1h2.2L12 8.6z"/></svg></div>
+      </div>
       <p class="eyebrow">Código de vestimenta</p>
       <h3 class="display" style="font-size:2rem">Formal</h3>
-      <div class="swatches" aria-hidden="true">
-        <span class="sw" style="background:#111318"></span>
-        <span class="sw" style="background:#22313f"></span>
-        <span class="sw" style="background:#8c8172"></span>
-        <span class="sw" style="background:#6e1f2a"></span>
-      </div>
       <p class="note">Vestido largo o midi para ellas, traje para ellos.</p>
       <p class="note" style="color:var(--gold-soft)">Dos colores apartados: el blanco es de la novia y el verde es de los acompañantes de los novios. Cualquier otro tono es bienvenido.</p>
-      <a class="btn solid" href="#" id="calBtn">
+      <button class="btn solid" type="button" id="calBtn">
         <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         Agregar a calendario
-      </a>
+      </button>
+      <a class="calendar-file" href="boda-sofia-hector.ics" download>Descargar para Apple Calendar u Outlook ↗</a>
     </div>
   </div>
 </section>
 
 <!-- ============ NOSOTROS ============ -->
-<section class="pad-sm">
+<section class="pad-sm" id="historia">
   <div class="wrap">
     <div class="center reveal">
+      <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.3 0-.6-.1-.8-.3C7.9 17.7 3 13.6 3 9.3 3 6.4 5.3 4 8.2 4c1.7 0 3.1.8 3.8 2 .7-1.2 2.1-2 3.8-2 2.9 0 5.2 2.4 5.2 5.3 0 4.3-4.9 8.4-8.2 10.7-.2.2-.5.3-.8.3z"/></svg></div>
       <p class="eyebrow">Nosotros</p>
       <h2 class="display sec-title">Diez años en <em>siete</em> momentos</h2>
     </div>
 
     <div class="timeline reveal">
       <div class="tl-item">
-        <p class="tl-year">2016</p>
+        <p class="tl-year"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.3 0-.6-.1-.8-.3C7.9 17.7 3 13.6 3 9.3 3 6.4 5.3 4 8.2 4c1.7 0 3.1.8 3.8 2 .7-1.2 2.1-2 3.8-2 2.9 0 5.2 2.4 5.2 5.3 0 4.3-4.9 8.4-8.2 10.7-.2.2-.5.3-.8.3z"/></svg></span>2016</p>
         <h3 class="tl-title">La primera vez</h3>
         <p class="tl-text">Nos cruzamos sin planearlo, sin buscarnos. Ninguno de los dos sabía que esa era la primera página.</p>
       </div>
       <div class="tl-item">
-        <p class="tl-year">2019</p>
+        <p class="tl-year"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.3 0-.6-.1-.8-.3C7.9 17.7 3 13.6 3 9.3 3 6.4 5.3 4 8.2 4c1.7 0 3.1.8 3.8 2 .7-1.2 2.1-2 3.8-2 2.9 0 5.2 2.4 5.2 5.3 0 4.3-4.9 8.4-8.2 10.7-.2.2-.5.3-.8.3z"/></svg></span>2019</p>
         <h3 class="tl-title">Otra vez tú</h3>
         <p class="tl-text">Tres años después, de pura casualidad, volvimos a encontrarnos. La vida ya venía insistiendo.</p>
       </div>
       <div class="tl-item">
-        <p class="tl-year">2022</p>
+        <p class="tl-year"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.6 4.9L18.5 9.5 13.6 11.1 12 16l-1.6-4.9L5.5 9.5l4.9-1.6L12 3z"/></svg></span>2022</p>
         <h3 class="tl-title">La fiesta</h3>
         <p class="tl-text">A la tercera dejamos de creer en las coincidencias. Le hablé, quedamos de salir, y esta vez no la dejé ir.</p>
       </div>
       <div class="tl-item">
-        <p class="tl-year">Febrero 2023</p>
+        <p class="tl-year"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="15" r="5"/><circle cx="15.5" cy="15" r="5"/><path d="M12 5.5l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3L8.8 8.7l2.3-.9.9-2.3z"/></svg></span>Febrero 2023</p>
         <h3 class="tl-title">Novios</h3>
         <p class="tl-text">Le puse nombre a lo que ya era obvio para los dos.</p>
       </div>
       <div class="tl-item">
-        <p class="tl-year">Octubre 2025</p>
+        <p class="tl-year"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21.8 2.2L10.5 13.5M21.8 2.2L15 22l-4-8.5-8.5-4L21.8 2.2z"/></svg></span>Octubre 2025</p>
         <h3 class="tl-title">La pregunta, en Tokio</h3>
         <p class="tl-text">Al otro lado del mundo, lejos de todo lo conocido, le pedí que se quedara conmigo para siempre. Dijo que sí.</p>
       </div>
       <div class="tl-item">
-        <p class="tl-year">30 de julio de 2026</p>
+        <p class="tl-year"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 2.8h7l4 4V20a1 1 0 01-1 1h-10a1 1 0 01-1-1V3.8a1 1 0 011-1z"/><path d="M13.5 2.8v4h4"/><path d="M8.5 12h7M8.5 15h7M8.5 9h3"/></svg></span>30 de julio de 2026</p>
         <h3 class="tl-title">Ya es oficial</h3>
         <p class="tl-text">Firmamos por el civil. Un papel que solo confirma lo que ya sabíamos.</p>
       </div>
       <div class="tl-item">
-        <p class="tl-year">7 de noviembre de 2026</p>
+        <p class="tl-year"><span class="v-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v2.5M10.7 3.3h2.6"/><path d="M12 5l7.5 6.2h-2.2V21H6.7v-9.8H4.5L12 5z"/><path d="M9.8 21v-5.2a2.2 2.2 0 014.4 0V21"/></svg></span>7 de noviembre de 2026</p>
         <h3 class="tl-title">Ante Dios y ante ustedes</h3>
         <p class="tl-text">Nos falta lo más importante: decirlo en voz alta, frente a Dios y frente a la gente que queremos. Aquí es donde entras tú.</p>
       </div>
@@ -739,14 +272,32 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
 
     <div class="gallery reveal">
       <div class="shot">
-        <img src="tokyo.jpg" alt="El compromiso en Tokio, octubre de 2025" loading="lazy">
+        <img width="1086" height="724" decoding="async" src="tokyo.jpg" alt="El compromiso en Tokio, octubre de 2025" loading="lazy">
         <p class="cap">Tokio · Octubre 2025</p>
       </div>
       <div class="shot">
-        <img src="civil.jpg" alt="La boda civil, 30 de julio de 2026" loading="lazy">
+        <img width="2976" height="4464" decoding="async" src="civil.jpg" alt="La boda civil, 30 de julio de 2026" loading="lazy">
         <p class="cap">Civil · 30 de julio de 2026</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- Sesión casual: orden y pies de foto en assets/photos.js. -->
+<section class="casual-section pad-sm" id="momentos" hidden aria-labelledby="casualTitle">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Entre tú y yo</p>
+      <h2 class="display sec-title" id="casualTitle">Lo bonito de <em>nosotros</em></h2>
+      <p class="sec-lead">Nuestros días favoritos siempre son juntos.</p>
+    </div>
+    <div class="casual-track" id="casualTrack" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Fotos de nuestra sesión casual"></div>
+    <div class="casual-controls" id="casualControls">
+      <button type="button" id="casualPrev" aria-label="Foto anterior" aria-controls="casualTrack">←</button>
+      <p id="casualStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+      <button type="button" id="casualNext" aria-label="Foto siguiente" aria-controls="casualTrack">→</button>
+    </div>
+    <p class="casual-hint" id="casualHint">Desliza para descubrir más momentos</p>
   </div>
 </section>
 
@@ -754,9 +305,11 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
 <section class="rsvp pad" id="rsvp">
   <div class="wrap">
     <div class="center reveal">
+      <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg></div>
       <p class="eyebrow">Confirmación</p>
       <h2 class="display sec-title">Confirma tu <em>asistencia</em></h2>
-      <p class="sec-lead">Registra tu nombre y los pases que vas a usar. Al terminar te generamos tu pase digital para guardarlo en el celular.</p>
+      <p class="sec-lead">Ya reservamos tus lugares. Abre tu enlace privado y dinos si nos acompañas. Al terminar te generamos tu pase digital para guardarlo en el celular.</p>
+      <p class="rsvp-deadline">Con cariño, confirma a más tardar el <strong>7 de octubre de 2026</strong></p>
     </div>
 
     <!-- aparece si ya confirmaste desde este celular -->
@@ -764,52 +317,48 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
       <p class="rb-lab">Ya te tenemos apuntado</p>
       <h3 id="rbName">—</h3>
       <p id="rbText">—</p>
-      <button type="button" id="rbReset">Confirmar a otra persona</button>
+      <button type="button" id="rbReset">Volver a consultar mi confirmación</button>
     </div>
 
     <div class="form-card reveal" id="formCard">
-      <form id="rsvpForm" novalidate>
+      <form id="rsvpForm">
         <div class="field">
           <label for="nombre">Nombre completo</label>
-          <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Como aparece en tu invitación" required>
+          <input type="text" id="nombre" name="nombre" minlength="3" maxlength="100" autocomplete="name" placeholder="Como aparece en tu invitación" required>
         </div>
 
         <div class="field">
-          <label>¿Nos acompañas?</label>
-          <div class="choice">
+          <span class="field-label" id="attendanceLabel">¿Nos acompañas?</span>
+          <div class="choice" role="radiogroup" aria-labelledby="attendanceLabel">
             <label><input type="radio" name="asiste" value="Sí" checked><span>Sí, ahí estaré</span></label>
             <label><input type="radio" name="asiste" value="No"><span>No podré</span></label>
           </div>
         </div>
 
         <div class="field" id="pasesField">
-          <label for="pases">Pases que vas a usar</label>
-          <select id="pases" name="pases">
-            <option value="1">1 pase</option>
-            <option value="2">2 pases</option>
-            <option value="3">3 pases</option>
-            <option value="4">4 pases</option>
-            <option value="5">5 pases</option>
-          </select>
-          <p class="hint" id="pasesHint">Incluye a todos los que van contigo.</p>
+          <span class="field-label">Pases asignados por los novios</span>
+          <p class="assigned-passes" id="pases" aria-describedby="pasesHint">—</p>
+          <p class="hint" id="pasesHint">Tu enlace mostrará los pases reservados para ti.</p>
         </div>
 
         <div class="field">
           <label for="tel">WhatsApp <span style="text-transform:none;letter-spacing:0">(opcional)</span></label>
-          <input type="tel" id="tel" name="tel" autocomplete="tel" placeholder="656 000 0000">
+          <input type="tel" id="tel" name="tel" maxlength="25" inputmode="tel" autocomplete="tel" placeholder="656 000 0000">
           <p class="hint">Solo por si necesitamos avisarte de algún cambio.</p>
         </div>
 
         <div class="field">
           <label for="mensaje">Mensaje para nosotros <span style="text-transform:none;letter-spacing:0">(opcional)</span></label>
-          <textarea id="mensaje" name="mensaje" placeholder="Alergias, restricciones de comida, o lo que quieras decirnos"></textarea>
+          <textarea id="mensaje" name="mensaje" maxlength="1000" placeholder="Alergias, restricciones de comida, o lo que quieras decirnos"></textarea>
         </div>
 
         <button type="submit" class="btn solid" id="submitBtn" style="width:100%;justify-content:center">
           <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
           Confirmar asistencia
         </button>
+        <p class="privacy-note">Al confirmar, compartes estos datos con los novios para organizar la boda. Solo guardamos una copia de tu pase en este navegador; no guardamos aquí tu teléfono ni tu mensaje.</p>
         <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+        <button type="button" class="btn ghost" id="retryInvite" hidden>Volver a consultar</button>
       </form>
     </div>
 
@@ -847,16 +396,17 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="pad-sm">
+<section class="pad-sm" id="preguntas">
   <div class="wrap">
     <div class="center reveal">
+      <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.5 9a2.5 2.5 0 114 2c-1 .7-1.5 1.3-1.5 2.5"/><circle cx="12" cy="17.3" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="9.3"/></svg></div>
       <p class="eyebrow">Detalles</p>
       <h2 class="display sec-title">Buenas <em>preguntas</em></h2>
     </div>
     <div class="faq reveal">
       <details>
         <summary>¿Hasta cuándo puedo confirmar?</summary>
-        <p>Te pedimos confirmar antes del 7 de octubre de 2026. Después de esa fecha ya no podemos agregar lugares.</p>
+        <p>Puedes confirmar hasta el 7 de octubre de 2026, inclusive. Después de esa fecha ya no podemos agregar lugares.</p>
       </details>
       <details>
         <summary>¿Puedo llevar a alguien más?</summary>
@@ -864,7 +414,7 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
       </details>
       <details>
         <summary>¿Van niños?</summary>
-        <p>Sí, los niños son bienvenidos. Cuéntalos dentro de tus pases al confirmar.</p>
+        <p>Sí, los niños son bienvenidos. Están incluidos dentro de los pases asignados a tu invitación.</p>
       </details>
       <details>
         <summary>¿Hay estacionamiento?</summary>
@@ -872,7 +422,7 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
       </details>
       <details>
         <summary>¿Perdí mi pase, qué hago?</summary>
-        <p>Si confirmaste desde este mismo celular, tu pase vuelve a aparecer solo al entrar de nuevo al sitio. Si cambiaste de teléfono o borraste el historial, escríbenos y te lo reenviamos.</p>
+        <p>Abre de nuevo tu enlace privado, incluso desde otro teléfono: recuperaremos tu pase. Necesitas conexión a internet. Si perdiste el enlace, escríbenos para reenviártelo.</p>
       </details>
       <details>
         <summary>¿Mesa de regalos?</summary>
@@ -882,408 +432,20 @@ footer .tag{margin-top:1rem;font-size:.7rem;letter-spacing:.24em;text-transform:
   </div>
 </section>
 
+</main>
 <footer>
+  <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="15" r="5"/><circle cx="15.5" cy="15" r="5"/><path d="M12 5.5l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3L8.8 8.7l2.3-.9.9-2.3z"/></svg></div>
   <p class="sig">Sofía &amp; Héctor</p>
   <p class="tag">#SofiaYHector2026</p>
+<p class="footer-note">Qué bonito que seas parte de nuestra historia.</p>
 </footer>
+<div class="mobile-dock" aria-label="Accesos rápidos"><a href="#lugares">Cómo llegar</a><a href="#rsvp">Confirmar asistencia ↗</a></div>
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-/* =========================================================
-   CONFIGURACIÓN — lo único que necesitas editar
-   ========================================================= */
-const CONFIG = {
-  // Pega aquí la URL del Web App de Google Apps Script (termina en /exec).
-  // Si la dejas vacía, el formulario funciona en modo demo (no guarda nada).
-  ENDPOINT: "https://script.google.com/macros/s/AKfycbxEkV985Kzv372ajrfXNi51criJ_karnNJKfR0_Z3AZr4Gvmx7Z95HlQxTMFKdf9WaT_w/exec",
-  FECHA_EVENTO: "2026-11-07T17:00:00-07:00",  // ceremonia
-  MAX_PASES: 5,
-  LS_KEY: "hs2026-pase"                        // dónde se guarda el pase en el celular
-};
-
-/* ---------- sobre → carta → sitio ---------- */
-(function gate(){
-  const gate     = document.getElementById('gate');
-  const openBtn  = document.getElementById('openBtn');
-  const env      = document.getElementById('envelope');
-  const card     = document.getElementById('card');
-  const paper    = card.querySelector('.paper');   // el papel es el que scrollea
-  const enterBtn = document.getElementById('enterBtn');
-  const noMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  let phase = 'closed';   // closed → opening → reading → leaving → gone
-
-  function abrir(){
-    if (phase !== 'closed') return;
-    phase = 'opening';
-    gate.classList.add('opening');
-    setTimeout(() => { gate.classList.add('reading'); phase = 'reading'; }, noMotion ? 0 : 1450);
-  }
-
-  function entrar(){
-    if (phase !== 'reading') return;
-    phase = 'leaving';
-    card.style.transition = '';
-    card.style.transform = '';
-    card.style.opacity = '';
-    gate.classList.add('leaving');
-    setTimeout(() => {
-      gate.classList.add('gone');
-      document.body.classList.remove('locked');
-      phase = 'gone';
-      revealCheck();
-    }, noMotion ? 0 : 620);
-  }
-
-  // ¿la carta todavía tiene contenido por scrollear? entonces no salimos aún
-  function cartaAlFinal(){
-    return paper.scrollTop + paper.clientHeight >= paper.scrollHeight - 4;
-  }
-
-  openBtn.addEventListener('click', abrir);
-  env.addEventListener('click', abrir);
-  env.style.cursor = 'pointer';
-  enterBtn.addEventListener('click', entrar);
-
-  gate.addEventListener('wheel', e => {
-    if (phase === 'reading' && e.deltaY > 4 && cartaAlFinal()) entrar();
-  }, {passive:true});
-
-  window.addEventListener('keydown', e => {
-    if (phase === 'closed' && (e.key === 'Enter' || e.key === ' ')) return;   // los botones ya responden
-    if (phase === 'reading' && ['ArrowDown','ArrowUp','PageDown',' ','Enter','Escape'].includes(e.key)){
-      e.preventDefault();
-      entrar();
-    }
-  });
-
-  // gesto de deslizar: la carta sigue el dedo y se va si el impulso alcanza
-  let y0 = null, arrastrando = false;
-  gate.addEventListener('touchstart', e => {
-    y0 = e.touches[0].clientY;
-    arrastrando = phase === 'reading' && cartaAlFinal();
-  }, {passive:true});
-
-  gate.addEventListener('touchmove', e => {
-    if (!arrastrando || y0 === null || phase !== 'reading') return;
-    const dy = y0 - e.touches[0].clientY;
-    if (dy > 0){
-      const d = Math.min(dy, 150);
-      card.style.transform =
-        `perspective(1200px) translateY(${-d}px) rotateX(${(-d / 26).toFixed(2)}deg) scale(${1 - d / 1800})`;
-      card.style.opacity = String(Math.max(0, 1 - dy / 300));
-      if (dy > 85) entrar();
-    }
-  }, {passive:true});
-
-  gate.addEventListener('touchend', () => {
-    if (phase === 'reading' && card.style.transform){
-      card.style.transition = 'transform .45s ease,opacity .45s ease';
-      card.style.transform = '';
-      card.style.opacity = '';
-      setTimeout(() => { card.style.transition = ''; }, 460);
-    }
-    y0 = null; arrastrando = false;
-  });
-})();
-
-/* ---------- sobre: inclinación 3D con el cursor (solo mouse) ---------- */
-(function tiltSobre(){
-  const scene = document.querySelector('.scene');
-  const env3d = document.getElementById('env3d');
-  if (!scene || !env3d) return;
-  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  const BASE_X = 7, BASE_Y = -8, MAX = 9;
-
-  scene.addEventListener('pointermove', e => {
-    const r  = scene.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width  - .5;
-    const py = (e.clientY - r.top)  / r.height - .5;
-    env3d.style.transition = 'transform .14s linear';
-    env3d.style.setProperty('--ex', (BASE_X - py * MAX).toFixed(2) + 'deg');
-    env3d.style.setProperty('--ey', (BASE_Y + px * MAX * 1.6).toFixed(2) + 'deg');
-  });
-
-  scene.addEventListener('pointerleave', () => {
-    env3d.style.transition = 'transform .8s cubic-bezier(.2,.7,.3,1)';
-    env3d.style.setProperty('--ex', BASE_X + 'deg');
-    env3d.style.setProperty('--ey', BASE_Y + 'deg');
-  });
-
-  // al abrir, el sobre se endereza con calma, no con la transición rápida del hover
-  scene.addEventListener('pointerdown', () => {
-    env3d.style.transition = 'transform .8s cubic-bezier(.2,.7,.3,1)';
-  });
-})();
-
-/* ---------- carta: inclinación 3D con el cursor (solo mouse) ---------- */
-(function tilt(){
-  const card  = document.getElementById('card');
-  const paper = card.querySelector('.paper');
-  if (!paper) return;
-  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  const MAX = 5.5;
-
-  card.addEventListener('pointermove', e => {
-    const r  = paper.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width  - .5;
-    const py = (e.clientY - r.top)  / r.height - .5;
-    paper.style.transition = 'transform .12s linear';
-    paper.style.setProperty('--ty', (px * MAX * 2).toFixed(2) + 'deg');
-    paper.style.setProperty('--tx', (-py * MAX).toFixed(2) + 'deg');
-    paper.style.setProperty('--lx', (28 + px * 44).toFixed(1) + '%');
-    paper.style.setProperty('--ly', (8  + py * 30).toFixed(1) + '%');
-  });
-
-  card.addEventListener('pointerleave', () => {
-    paper.style.transition = 'transform .7s cubic-bezier(.2,.7,.3,1)';
-    paper.style.setProperty('--tx', '0deg');
-    paper.style.setProperty('--ty', '0deg');
-    paper.style.setProperty('--lx', '28%');
-    paper.style.setProperty('--ly', '8%');
-  });
-})();
-
-/* ---------- cuenta regresiva ---------- */
-(function countdown(){
-  const target = new Date(CONFIG.FECHA_EVENTO).getTime();
-  const el = {d:document.getElementById('cd-d'),h:document.getElementById('cd-h'),
-              m:document.getElementById('cd-m'),s:document.getElementById('cd-s')};
-  let timer = null;
-
-  // ya pasó la boda: los números se van y queda el agradecimiento
-  function terminado(){
-    if (timer) clearInterval(timer);
-    document.getElementById('cdBox').style.display = 'none';
-    document.getElementById('cdDone').classList.add('on');
-    document.getElementById('cdEyebrow').textContent = '07 · 11 · 2026';
-    document.getElementById('cdTitle').innerHTML = 'Ya somos <em>familia</em>';
-  }
-
-  function tick(){
-    const diff = target - Date.now();
-    if (diff <= 0){ terminado(); return; }
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor(diff%86400000/3600000);
-    const m = Math.floor(diff%3600000/60000);
-    const s = Math.floor(diff%60000/1000);
-    el.d.textContent = String(d).padStart(3,'0');
-    el.h.textContent = String(h).padStart(2,'0');
-    el.m.textContent = String(m).padStart(2,'0');
-    el.s.textContent = String(s).padStart(2,'0');
-  }
-  tick();
-  timer = setInterval(tick, 1000);
-})();
-
-/* ---------- reveal al hacer scroll ---------- */
-const revealEls = document.querySelectorAll('.reveal');
-function revealCheck(){
-  revealEls.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('on');
-  });
-}
-window.addEventListener('scroll', revealCheck, {passive:true});
-window.addEventListener('resize', revealCheck);
-
-/* ---------- calendario ---------- */
-function calendarUrl(){
-  const start = '20261107T170000';
-  const end   = '20261108T020000';
-  const text  = encodeURIComponent('Boda de Sofía y Héctor');
-  const loc   = encodeURIComponent('Parroquia María Reina del Universo, C. Lucero s/n, Parajes del Sol, Juárez, Chih.');
-  const det   = encodeURIComponent('Ceremonia 5:00 p.m. en la Parroquia María Reina del Universo. Recepción 9:00 p.m. en Jardín Terraza Arjeri. Vestimenta: formal.');
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${det}&location=${loc}&ctz=America/Ciudad_Juarez`;
-}
-['calBtn','calBtn2'].forEach(id => {
-  const b = document.getElementById(id);
-  if (b) b.addEventListener('click', e => { e.preventDefault(); window.open(calendarUrl(), '_blank', 'noopener'); });
-});
-
-/* ---------- invitación personalizada por link ----------
-   Ejemplo: invitacion.html?n=Familia%20Rosales&p=4
-   Prellena el nombre y limita los pases al máximo asignado. */
-(function personalize(){
-  const q = new URLSearchParams(location.search);
-  const nombre = q.get('n');
-  const max = parseInt(q.get('p'), 10);
-  if (nombre) document.getElementById('nombre').value = nombre;
-  if (max > 0 && max <= CONFIG.MAX_PASES){
-    const sel = document.getElementById('pases');
-    sel.innerHTML = '';
-    for (let i = 1; i <= max; i++){
-      const o = document.createElement('option');
-      o.value = i; o.textContent = i === 1 ? '1 pase' : i + ' pases';
-      sel.appendChild(o);
-    }
-    sel.value = max;
-    document.getElementById('pasesHint').textContent =
-      `Tu invitación es para ${max} ${max === 1 ? 'persona' : 'personas'}.`;
-  }
-})();
-
-/* ---------- mostrar/ocultar pases según asistencia ---------- */
-document.querySelectorAll('input[name="asiste"]').forEach(r => {
-  r.addEventListener('change', () => {
-    const asiste = document.querySelector('input[name="asiste"]:checked').value === 'Sí';
-    document.getElementById('pasesField').style.display = asiste ? '' : 'none';
-  });
-});
-
-/* ---------- envío del RSVP ---------- */
-const form = document.getElementById('rsvpForm');
-const msg  = document.getElementById('formMsg');
-const submitBtn = document.getElementById('submitBtn');
-const formCard  = document.getElementById('formCard');
-const backBox   = document.getElementById('rsvpBack');
-
-function folioFor(nombre){
-  let h = 0;
-  const base = nombre.toUpperCase() + Date.now();
-  for (let i = 0; i < base.length; i++) h = (h * 31 + base.charCodeAt(i)) % 1679616;
-  return 'HS-' + h.toString(36).toUpperCase().padStart(4, '0').slice(-4);
-}
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const nombre = document.getElementById('nombre').value.trim();
-  const asiste = document.querySelector('input[name="asiste"]:checked').value;
-  const pases  = asiste === 'Sí' ? document.getElementById('pases').value : '0';
-
-  msg.className = 'form-msg';
-  if (nombre.length < 3){
-    msg.className = 'form-msg err';
-    msg.textContent = 'Escribe tu nombre completo para continuar.';
-    return;
-  }
-
-  const payload = {
-    folio: folioFor(nombre),
-    nombre,
-    asiste,
-    pases: Number(pases),
-    tel: document.getElementById('tel').value.trim(),
-    mensaje: document.getElementById('mensaje').value.trim(),
-    enviado: new Date().toISOString()
-  };
-
-  submitBtn.disabled = true;
-  msg.textContent = 'Guardando tu confirmación…';
-
-  try {
-    if (CONFIG.ENDPOINT){
-      const res = await fetch(CONFIG.ENDPOINT, {
-        method: 'POST',
-        // text/plain evita el preflight CORS que Apps Script no maneja
-        headers: {'Content-Type': 'text/plain;charset=utf-8'},
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (!data.ok) throw new Error(data.error || 'Error del servidor');
-      if (data.folio) payload.folio = data.folio;
-    } else {
-      await new Promise(r => setTimeout(r, 700)); // modo demo
-    }
-
-    guardarLocal(payload);   // para que el pase siga aquí si cierra la página
-
-    msg.className = 'form-msg ok';
-    msg.textContent = asiste === 'Sí'
-      ? '¡Listo! Guarda tu pase, te lo van a pedir en la entrada.'
-      : 'Gracias por avisarnos. Te vamos a extrañar.';
-
-    if (asiste === 'Sí') showPass(payload);
-    form.querySelectorAll('input,select,textarea,button').forEach(el => el.disabled = true);
-  } catch (err){
-    submitBtn.disabled = false;
-    msg.className = 'form-msg err';
-    msg.textContent = 'No se pudo guardar. Revisa tu conexión e intenta de nuevo.';
-    console.error(err);
-  }
-});
-
-/* ---------- pase digital ---------- */
-function showPass(p, mover = true){
-  document.getElementById('passName').textContent = p.nombre;
-  document.getElementById('passQty').textContent = p.pases;
-  document.getElementById('passFolio').textContent = 'Folio ' + p.folio;
-
-  const box = document.getElementById('qr');
-  box.innerHTML = '';
-
-  // El QR abre la página de validación del Apps Script con el folio.
-  // Sin ENDPOINT configurado cae al texto simple de respaldo.
-  const destino = CONFIG.ENDPOINT
-    ? CONFIG.ENDPOINT + '?f=' + encodeURIComponent(p.folio)
-    : `HS2026|${p.folio}|${p.nombre}|${p.pases}`;
-
-  if (window.QRCode){
-    new QRCode(box, {
-      text: destino,
-      width: 148, height: 148,
-      colorDark: '#0b0b0c', colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  }
-  const wrap = document.getElementById('passWrap');
-  wrap.classList.add('show');
-  if (mover) wrap.scrollIntoView({behavior:'smooth', block:'center'});
-}
-
-/* ---------- el pase se queda guardado en el celular ---------- */
-function guardarLocal(p){
-  try {
-    localStorage.setItem(CONFIG.LS_KEY, JSON.stringify({
-      folio: p.folio, nombre: p.nombre, pases: p.pases, asiste: p.asiste
-    }));
-  } catch(e){ /* modo privado o sin espacio: no pasa nada */ }
-}
-function leerLocal(){
-  try { return JSON.parse(localStorage.getItem(CONFIG.LS_KEY) || 'null'); }
-  catch(e){ return null; }
-}
-
-(function restaurarPase(){
-  const p = leerLocal();
-  if (!p || !p.nombre) return;
-
-  formCard.style.display = 'none';
-  backBox.classList.add('on');
-  document.getElementById('rbName').textContent = p.nombre;
-
-  if (p.asiste === 'Sí'){
-    document.getElementById('rbText').textContent =
-      'Tu pase está aquí abajo, tal como lo dejaste. Te lo van a pedir en la entrada.';
-    showPass(p, false);
-  } else {
-    document.getElementById('rbText').textContent =
-      'Ya nos avisaste que no vas a poder acompañarnos. Te vamos a extrañar.';
-  }
-})();
-
-document.getElementById('rbReset').addEventListener('click', () => {
-  try { localStorage.removeItem(CONFIG.LS_KEY); } catch(e){}
-  location.reload();
-});
-
-document.getElementById('dlBtn').addEventListener('click', async () => {
-  const node = document.getElementById('pass');
-  if (!window.html2canvas){ alert('Toma una captura de pantalla para guardar tu pase.'); return; }
-  try {
-    const canvas = await html2canvas(node, {backgroundColor:'#0b0b0c', scale:2, useCORS:true});
-    const a = document.createElement('a');
-    a.href = canvas.toDataURL('image/png');
-    a.download = 'pase-boda-sofia-hector.png';
-    a.click();
-  } catch (err){
-    console.error(err);
-    alert('No se pudo generar la imagen. Toma una captura de pantalla para guardar tu pase.');
-  }
-});
-
-revealCheck();
-</script>
+<script defer src="assets/vendor/qrcode.min.js"></script>
+<script defer src="assets/vendor/html2canvas.min.js"></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/photos.js" defer></script>
+<script src="assets/gallery.js" defer></script>
 </body>
 </html>
