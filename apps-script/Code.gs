@@ -1,10 +1,10 @@
 /** Sofía y Héctor. Copiar en Google Apps Script, NO ejecutar en GitHub Pages.
  * Instalación y migración: apps-script/README.md.
- * Solo doGet, doPost y registrarEntrada son públicos. Auxiliares terminan en _.
+ * onOpen solo muestra el menú. Los auxiliares administrativos terminan en _.
  */
 var AJUSTES = {
   HOJA: 'Hoja 1', INVITACIONES: 'Invitaciones', MAX_PASES: 9,
-  TZ: 'America/Ciudad_Juarez', CIERRE: '2026-10-07'
+  TZ: 'America/Ciudad_Juarez', CIERRE: '2026-11-01'
 };
 var CABECERAS = ['Fecha','Folio','Nombre','Asiste','Pases','WhatsApp','Mensaje','Ingreso','Invitacion','Solicitud'];
 var CAB_INV = ['Nombre','Maximo','Token','Enlace','Folio anterior','Mensaje para enviar','Estado','Pases confirmados'];
@@ -72,10 +72,9 @@ function doGet(e) {
   }
 }
 
-function registrarEntrada(folio, clave) {
+function registrarEntrada(folio) {
   var lock;
   try {
-    autorizarPersonal_(clave);
     if (!folioValido_(folio)) fallo_('PASE');
     lock = LockService.getScriptLock();
     if (!lock.tryLock(5000)) fallo_('OCUPADO');
@@ -162,23 +161,13 @@ function textoHoja_(s) {
   // El apóstrofo hace que Sheets trate la entrada como texto, incluyendo exports comunes.
   return /^[\s\u0000-\u001f]*[=+@-]/.test(s) ? "'"+s : s;
 }
-function autorizarPersonal_(clave) {
-  var secret=PropertiesService.getScriptProperties().getProperty('CLAVE_ENTRADA');
-  if (!secret || secret.length<16 || secret.length>200) fallo_('CONFIGURACION');
-  if (typeof clave!=='string' || clave.length>200) fallo_('ACCESO');
-  var a=Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,secret);
-  var b=Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,clave);
-  var diff=0;
-  for(var i=0;i<a.length;i++) diff |= a[i]^b[i];
-  if(diff) fallo_('ACCESO');
-}
 function hora_(date) { return Utilities.formatDate(new Date(date),AJUSTES.TZ,'HH:mm'); }
 function fallo_(code) { var e=new Error(code); e.publicCode=code; throw e; }
 function errorObjeto_(e) {
   var messages={DATOS:'Revisa los datos enviados.',INVITACION:'Abre el enlace privado que te enviaron los novios.',
     CUPO:'La cantidad de pases no corresponde a tu invitación.',CERRADO:'El plazo de confirmación terminó. Contacta a los novios.',
     OCUPADO:'Estamos procesando otras confirmaciones. Intenta de nuevo.',SOLICITUD:'No se pudo validar la solicitud.',
-    CONFIGURACION:'El servicio necesita revisión de los novios.',PASE:'Este pase no autoriza el acceso.',ACCESO:'Clave del personal incorrecta.'};
+    CONFIGURACION:'El servicio necesita revisión de los novios.',PASE:'Este pase no autoriza el acceso.'};
   var code=e && e.publicCode;
   return {ok:false,code:messages[code]?code:'SERVIDOR',error:messages[code]||'No se pudo completar la operación. Intenta de nuevo.'};
 }
@@ -189,9 +178,9 @@ function escapeHtml_(v) {
 }
 function pagina_(nombre, detalle, estado, folio) {
   var color=estado==='bueno'?'#1f7a4d':estado==='repetido'?'#a8761b':'#8c2b38';
-  var form=folio ? '<form id="entry"><label for="key">Clave del personal de recepción</label><input id="key" type="password" maxlength="200" required autocomplete="off"><button id="go">Registrar entrada</button></form>' : '';
+  var form=folio ? '<form id="entry"><p>Recepción: pulsa el botón cuando llegue el grupo.</p><button id="go">Registrar entrada</button></form>' : '';
   // Solo se inserta un folio validado; los textos se escapan antes de formar HTML.
-  var script=folio && folioValido_(folio) ? '<script>document.getElementById("entry").addEventListener("submit",function(e){e.preventDefault();var b=document.getElementById("go"),k=document.getElementById("key"),m=document.getElementById("msg");if(b.disabled)return;b.disabled=true;google.script.run.withSuccessHandler(function(r){k.value="";m.textContent=r.mensaje||r.error;if(r.ok){document.getElementById("entry").hidden=true;document.getElementById("state").style.background=r.repetido?"#a8761b":"#1f7a4d";}else b.disabled=false;}).withFailureHandler(function(){k.value="";b.disabled=false;m.textContent="No se pudo verificar la entrada. Intenta de nuevo.";}).registrarEntrada('+JSON.stringify(folio)+',k.value);});</script>' : '';
+  var script=folio && folioValido_(folio) ? '<script>document.getElementById("entry").addEventListener("submit",function(e){e.preventDefault();var b=document.getElementById("go"),m=document.getElementById("msg");if(b.disabled)return;b.disabled=true;google.script.run.withSuccessHandler(function(r){m.textContent=r.mensaje||r.error;if(r.ok){document.getElementById("entry").hidden=true;document.getElementById("state").style.background=r.repetido?"#a8761b":"#1f7a4d";}else b.disabled=false;}).withFailureHandler(function(){b.disabled=false;m.textContent="No se pudo verificar la entrada. Intenta de nuevo.";}).registrarEntrada('+JSON.stringify(folio)+');});</script>' : '';
   return HtmlService.createHtmlOutput('<!doctype html><html lang="es"><head><meta name="referrer" content="no-referrer"><style>body{margin:0;background:#171d18;color:#fbf6ee;font:16px/1.6 system-ui;min-height:100svh;display:grid;place-items:center}main{padding:2rem;max-width:420px;text-align:center;overflow-wrap:anywhere}h1{font-weight:400}#state{width:60px;height:60px;border-radius:50%;margin:auto}label{display:block;margin-top:2rem}input,button{box-sizing:border-box;width:100%;padding:1rem;margin-top:.8rem;border:1px solid #ceb58a;border-radius:6px;font:inherit}button{background:#ceb58a;color:#171d18;cursor:pointer}button:disabled{opacity:.5}</style></head><body><main><div id="state" style="background:'+color+'"></div><p>Sofía &amp; Héctor · Pase de acceso</p><h1>'+escapeHtml_(nombre)+'</h1><p id="msg" role="status" aria-live="polite">'+escapeHtml_(detalle)+'</p>'+form+'</main>'+script+'</body></html>')
     .setTitle('Pase · Sofía y Héctor').addMetaTag('viewport','width=device-width, initial-scale=1');
 }
@@ -291,6 +280,10 @@ function activarAutomatizacion_() {
       else builder.onOpen().create();
     }
   });
+  menuBoda_();
+}
+// Punto visible en el editor; no ejecuta operaciones administrativas.
+function onOpen() {
   menuBoda_();
 }
 function menuBoda_() {

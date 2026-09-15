@@ -8,8 +8,10 @@ El invitado únicamente responde Sí o No. No puede elegir la cantidad de pases.
 Como ya configuraste el Apps Script anterior:
 
 1. Sustituye su código por el nuevo `Code.gs` de esta carpeta.
-2. En el editor, ejecuta **`activarAutomatizacion_`** y acepta los permisos.
-   Conserva las propiedades `URL_INVITACION`, `SPREADSHEET_ID` y `CLAVE_ENTRADA`
+2. Guarda el código y recarga la hoja. En **Boda → Activar o reparar automatización**,
+   acepta los permisos. Si el menú no aparece, ejecuta **`onOpen`** desde el editor
+   vinculado a la hoja. Las funciones terminadas en `_` no aparecen en el selector.
+   Conserva las propiedades `URL_INVITACION` y `SPREADSHEET_ID`
    que ya tenías. Si falta el ID, se toma de la hoja vinculada al editor.
 3. Actualiza la implementación existente a una **Nueva versión**. Así mantienes
    la misma URL `/exec`. Publica también `index.html`, `assets/app.js` y
@@ -100,19 +102,23 @@ En Configuración del proyecto → Propiedades de la secuencia de comandos:
 
 - `SPREADSHEET_ID`: ID de la hoja. Puede detectarse al ejecutar la activación desde su editor vinculado.
 - `URL_INVITACION`: URL HTTPS final de GitHub Pages, sin parámetros ni `#`.
-- `CLAVE_ENTRADA`: contraseña aleatoria de 16 a 200 caracteres, exclusiva del personal.
 
 La implementación debe ejecutarse como el propietario y permitir abrir los enlaces
-sin iniciar sesión en Google. La clave de entrada se comprueba en el servidor.
-No pongas la clave ni la lista privada en GitHub.
+sin iniciar sesión en Google. No publiques la lista privada en GitHub.
+
+Al escanear el QR se muestran el nombre y los pases. Recepción pulsa **Registrar
+entrada**, sin contraseña. Abrir el QR no registra automáticamente la entrada.
+El botón está disponible para quien tenga el QR; úsalo al llegar al evento.
+Si ya existe un ingreso, se muestra su hora sin volver a registrarlo.
+La antigua propiedad `CLAVE_ENTRADA` ya no se utiliza y puedes eliminarla.
 
 ## Comprobación y límites
 
 Verifica una invitación de prueba desde el sitio publicado antes de enviar la lista:
-nombre/cupo fijo, confirmación, actualización de G/H, descarga y entrada con clave.
+nombre/cupo fijo, confirmación, actualización de G/H, descarga y entrada sin clave.
 Los tests locales usan servicios simulados y no modifican tu hoja.
 
-El plazo incluye el 7 de octubre de 2026, hora de Ciudad Juárez. Después se pueden
+El plazo incluye el 1 de noviembre de 2026, hora de Ciudad Juárez. Después se pueden
 recuperar confirmaciones pero no crear nuevas. El registro de entrada corresponde
 al grupo completo, no a accesos parciales. La validación necesita internet.
 El enlace es privado: quien lo reciba puede confirmar esa invitación. Apps Script

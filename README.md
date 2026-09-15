@@ -27,17 +27,16 @@ y actualizar la implementación existente.
 Tú escribes nombre y pases en Sheets. La automatización genera enlace, mensaje
 para copiar y estado de confirmación. El formulario usa `?i=token`: el invitado
 solo indica Sí o No y recibe exactamente los pases asignados; no hay selector. Los enlaces
-antiguos `?n=...&p=...` dejan de autorizar el RSVP. La lista privada y la clave del
-personal se guardan en Google, nunca en este repositorio.
+antiguos `?n=...&p=...` dejan de autorizar el RSVP. La lista privada se guarda en Google, nunca en este repositorio.
 
 Las confirmaciones no se sobrescriben por nombre. Los pases se recuperan desde
-el servidor y el personal necesita su clave para registrar una entrada. No se
+el servidor. Al escanear el QR, recepción pulsa «Registrar entrada» sin contraseña. No se
 publican estadísticas. La primera confirmación requiere el enlace privado y
-respeta el cierre del 7 de octubre de 2026, inclusive, hora de Ciudad Juárez.
+respeta el cierre del 1 de noviembre de 2026, inclusive, hora de Ciudad Juárez.
 
 La CSP permite scripts del propio sitio, mapas de Google y las fuentes existentes.
 `no-referrer` evita enviar los tokens a otros sitios como referencia. `noindex`
-no hace privada la página: no publiques la lista de invitados ni las claves.
+no hace privada la página: no publiques la lista de invitados ni los enlaces privados.
 
 Referencia CSP: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
 
@@ -73,3 +72,12 @@ La fotografía de bienvenida está en `index.html`; la disposición de la apertu
 El carrusel muestra fotos verticales y horizontales completas, con carga diferida,
 controles, gestos y teclado, sin reproducción automática. Sin JavaScript siguen
 visibles el retrato principal y las fotos históricas del compromiso y el civil.
+
+## Música de fondo
+
+El archivo `assets/audio/one-summers-day.mp3` se reproduce en bucle al tocar
+«Abrir invitación», el sobre o «Ir a los detalles». No se descarga al cargar la
+página. Los botones de música permiten pausar y reanudar sin reiniciar la canción;
+si el navegador bloquea el inicio, se puede reintentar desde el botón.
+El volumen inicial es 30 % cuando el navegador permite regularlo; en algunos
+celulares lo controla el volumen del dispositivo. No requiere cambios en Apps Script.

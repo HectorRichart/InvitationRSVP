@@ -736,3 +736,81 @@ button,a{touch-action:manipulation}
 }
 @media(max-height:560px) and (max-width:760px){.gate-photo{height:100%}}
 .assigned-passes{font:400 2rem 'Cormorant Garamond',Georgia,serif;color:var(--gold-soft);padding:.7rem 1rem;border:1px solid var(--hair);border-radius:8px;background:#ffffff04}
+
+/* En celular, la bienvenida se compone como una tarjeta fotográfica. */
+@media (max-width:760px) and (min-height:561px){
+  #gate{grid-template-rows:auto 1fr;gap:0;background:linear-gradient(160deg,#293328,#171d18 70%)}
+  #gate .gate-photo{height:clamp(230px,40svh,420px);max-height:none;width:100%;position:relative}
+  #gate .gate-photo img{object-fit:cover;object-position:45% 48%}
+  #gate .gate-photo::after{content:"";position:absolute;inset:auto 0 0;height:55px;background:linear-gradient(transparent,#263024);pointer-events:none}
+  #gate .stage{padding:1.2rem 1.5rem max(1.5rem,env(safe-area-inset-bottom));align-self:center}
+  #gate .env-col{gap:clamp(.8rem,2svh,1.4rem)}
+  #gate .gate-intro .eyebrow{font-size:.65rem;letter-spacing:.22em}
+  #gate .gate-intro h2{font-size:clamp(2rem,8vw,2.6rem);margin-top:.4rem}
+  #gate .scene{width:min(60vw,240px)}
+  #gate .open-btn{width:min(78vw,320px);font-size:.72rem;letter-spacing:.15em;min-height:50px}
+  #gate .gate-hint p{font-size:.6rem;margin-top:.6rem}
+  #gate .gate-skip{min-height:44px;top:max(.7rem,env(safe-area-inset-top));font-size:.65rem}
+  #gate.reading{grid-template-rows:1fr}
+  #gate.reading .stage{padding:4.2rem 1rem 1.2rem}
+  #gate .card{width:100%;max-width:410px}
+  #gate .paper{max-height:calc(100svh - 5.5rem);padding:1.6rem 1.25rem}
+  #gate .enter-btn{min-height:48px}
+}
+@media (max-width:760px){
+  .site-header nav a{min-height:44px;display:flex;align-items:center;font-size:.6rem}
+  .hero{gap:1.7rem;padding:2rem 1.25rem 4rem}
+  .hero-inner{display:contents}
+  .hero-inner>.eyebrow{grid-row:1;text-align:center;font-size:.65rem}
+  .hero-names{grid-row:2;text-align:center;font-size:clamp(3.3rem,12vw,5.3rem);margin:0;line-height:1.05}
+  .hero-portrait{grid-row:3;width:76%;max-width:310px}
+  .portrait-frame{padding:7px}
+  .portrait-frame img{height:auto;max-height:none;aspect-ratio:2/3;object-fit:cover}
+  .hero-sub{grid-row:4;text-align:center;margin:0;font-size:1.25rem}
+  .hero-date{margin:.2rem 0 0}
+  .hero-location{text-align:center;margin:0;font-size:.65rem}
+  .hero-inner>.btn{justify-self:center;margin:0;min-width:240px}
+  .portrait-stamp{width:66px;height:66px;left:-1rem;bottom:13%;font-size:1.2rem}
+  .sec-lead,.tl-text,.faq p,.dress .note{font-size:.94rem;line-height:1.85}
+  .venue .when{font-size:.66rem;line-height:1.7}
+  .venue .addr{font-size:.9rem}
+  .faq summary{font-size:1rem;min-height:44px}
+  .form-card{padding:1.3rem}
+  .field .hint,.privacy-note{font-size:.75rem}
+  .rsvp-deadline{font-size:.85rem}
+  .choice label{min-height:48px;display:flex;align-items:center;justify-content:center}
+  .mobile-dock a{font-size:.7rem;min-height:46px;display:flex;align-items:center;justify-content:center}
+  .casual-controls button{width:48px;height:48px}
+  .casual-hint{font-size:.75rem}
+}
+@media (max-width:360px){
+  .site-header{padding:.55rem .85rem}
+  .site-header nav{gap:.65rem}
+  .site-header nav a{font-size:.53rem}
+  .hero-names{font-size:3.3rem}
+}
+/* También cabe al girar el celular: foto a un lado y apertura compacta. */
+@media (max-height:560px) and (orientation:landscape){
+  #gate{grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:0}
+  #gate .gate-photo{height:100%;max-height:none;aspect-ratio:auto}
+  #gate .gate-photo img{object-fit:cover;object-position:45% center}
+  #gate .stage{padding:3.4rem 1rem .8rem}
+  #gate .env-col{gap:.65rem}
+  #gate .gate-intro h2{font-size:1.5rem;margin-top:.25rem}
+  #gate .gate-intro h2 br{display:none}
+  #gate .scene{width:min(100%,170px)}
+  #gate .open-btn{min-height:44px;padding:.6rem 1.3rem;font-size:.65rem}
+  #gate .gate-hint p{display:none}
+  #gate.reading{grid-template-columns:1fr}
+  #gate.reading .gate-photo{display:none}
+  #gate .paper{max-height:calc(100svh - 5rem)}
+}
+
+/* Música: controles gemelos para la bienvenida y el contenido. */
+.music-toggle{display:flex;align-items:center;justify-content:center;gap:.5rem;min-width:98px;min-height:44px;padding:.65rem .9rem;border:1px solid var(--hair);border-radius:999px;background:#171d18ed;color:var(--cream);font:500 .7rem 'Montserrat',sans-serif;cursor:pointer;box-shadow:0 3px 14px #0002}
+.music-toggle[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-soft)}
+.music-toggle:disabled{cursor:wait}
+.music-gate{position:absolute;top:max(.8rem,env(safe-area-inset-top));left:.8rem;z-index:3}
+.music-site{position:fixed;right:1rem;bottom:1.2rem;z-index:31}
+@media(max-width:760px){.music-site{bottom:calc(5.5rem + env(safe-area-inset-bottom));right:.8rem}}
+@media print{.music-toggle{display:none!important}}

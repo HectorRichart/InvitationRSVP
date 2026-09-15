@@ -5,7 +5,7 @@ const vm=require('node:vm');
 const fs=require('node:fs');
 const crypto=require('node:crypto');
 const source=fs.readFileSync(require('node:path').join(__dirname,'../apps-script/Code.gs'),'utf8');
-const TOKEN='a'.repeat(32), REQUEST='HS-'+'B'.repeat(32), KEY='solo-prueba-clave-larga';
+const TOKEN='a'.repeat(32), REQUEST='HS-'+'B'.repeat(32);
 function setup(){
   const sheets={},triggers=[];let acquired=false,available=true,date='2026-09-14',flushes=0;
   class Sheet {
@@ -19,7 +19,7 @@ function setup(){
     appendRow(r){this.rows.push(r);}
     setFrozenRows(){}
   }
-  const props={SPREADSHEET_ID:'test-sheet',CLAVE_ENTRADA:KEY,URL_INVITACION:'https://example.com/boda/'};
+  const props={SPREADSHEET_ID:'test-sheet',URL_INVITACION:'https://example.com/boda/'};
   const book={getSheetByName:n=>sheets[n],insertSheet:n=>sheets[n]=new Sheet([])};
   const context={console,PropertiesService:{getScriptProperties:()=>({getProperty:k=>props[k]})},
     LockService:{getScriptLock:()=>({tryLock:()=>{acquired=available;return acquired;},hasLock:()=>acquired,releaseLock:()=>{acquired=false;}})},
@@ -43,7 +43,7 @@ test('requiere enlace autorizado; no confía en nombre ni cupo del cliente',()=>
 test('una confirmación por invitación; reintentos no sobrescriben; recuperación después del cierre',()=>{
  const x=setup(),first=x.post(x.payload);
  assert.deepEqual(x.post({...x.payload,asiste:'No',pases:0}).pase,first.pase);
- x.setDate('2026-10-08');assert.deepEqual(x.post(x.payload).pase,first.pase);
+ x.setDate('2026-11-02');assert.deepEqual(x.post(x.payload).pase,first.pase);
  assert.deepEqual(x.get({i:TOKEN}).pase,first.pase);assert.equal(x.sheets['Hoja 1'].rows.length,2);
 });
 test('personas con el mismo nombre conservan invitaciones separadas',()=>{
@@ -57,33 +57,36 @@ test('rechaza tipos, pases, campos enormes y JSON incorrecto',()=>{
  assert.equal(JSON.parse(x.c.doPost({}).text).ok,false);
  assert.equal(x.sheets['Hoja 1'].rows.length,1);
 });
-test('fecha límite: permite el día 7, rechaza nuevas confirmaciones el día 8',()=>{
- const x=setup();x.setDate('2026-10-08');assert.equal(x.post(x.payload).code,'CERRADO');
- x.setDate('2026-10-07');assert.equal(x.post(x.payload).ok,true);
+test('fecha límite: permite el 1 de noviembre, rechaza nuevas confirmaciones el día 2',()=>{
+ const x=setup();x.setDate('2026-11-02');assert.equal(x.post(x.payload).code,'CERRADO');
+ x.setDate('2026-11-01');assert.equal(x.post(x.payload).ok,true);
 });
-test('entrada requiere clave y folio fuerte; una segunda entrada no cambia fecha',()=>{
+test('entrada sin clave requiere folio válido; escanear no registra y repetir no cambia fecha',()=>{
  const x=setup(),p=x.post(x.payload).pase;
- assert.equal(x.c.registrarEntrada(p.folio,'incorrecta').code,'ACCESO');assert.equal(x.sheets['Hoja 1'].rows[1][7],'');
- assert.equal(x.c.registrarEntrada('HS-001F',KEY).ok,false);
- assert.equal(x.c.registrarEntrada(p.folio,KEY).repetido,false);
- const time=x.sheets['Hoja 1'].rows[1][7];assert.equal(x.c.registrarEntrada(p.folio,KEY).repetido,true);assert.equal(x.sheets['Hoja 1'].rows[1][7],time);
+ const html=x.c.doGet({parameter:{f:p.folio}}).html;
+ assert(html.includes('Registrar entrada'));assert(!html.includes('type="password"'));
+ assert.equal(x.sheets['Hoja 1'].rows[1][7],'');
+ assert.equal(x.c.registrarEntrada('HS-'+'0'.repeat(32)).code,'PASE');
+ assert.equal(x.c.registrarEntrada('HS-001F').ok,false);
+ assert.equal(x.c.registrarEntrada(p.folio).repetido,false);
+ const time=x.sheets['Hoja 1'].rows[1][7];assert.equal(x.c.registrarEntrada(p.folio).repetido,true);assert.equal(x.sheets['Hoja 1'].rows[1][7],time);
 });
-test('no asistencia no permite ingreso ni siquiera con clave correcta',()=>{
+test('no asistencia no permite ingreso',()=>{
  const x=setup(),p=x.post({...x.payload,asiste:'No',pases:0}).pase;
- assert.equal(x.c.registrarEntrada(p.folio,KEY).code,'PASE');assert.equal(x.sheets['Hoja 1'].rows[1][7],'');
+ assert.equal(x.c.registrarEntrada(p.folio).code,'PASE');assert.equal(x.sheets['Hoja 1'].rows[1][7],'');
 });
 test('escape HTML, fórmulas literales y ninguna estadística pública',()=>{
  const x=setup();x.sheets.Invitaciones.rows[1][0]='<img src=x onerror=alert(1)>';
  const p=x.post({...x.payload,mensaje:'=1+1',tel:'+526560000000'}).pase;
  const html=x.c.doGet({parameter:{f:p.folio}}).html;
- assert(!html.includes('<img src=x'));assert(html.includes('&lt;img'));assert(!html.includes(KEY));
+ assert(!html.includes('<img src=x'));assert(html.includes('&lt;img'));
  assert.equal(x.sheets['Hoja 1'].rows[1][6],"'=1+1");assert.equal(x.sheets['Hoja 1'].rows[1][5],"'+526560000000");
  assert.deepEqual(Object.keys(x.get({})).sort(),['ok','servicio']);
 });
 test('errores de bloqueo/configuración no exponen detalles ni escriben otra pestaña',()=>{
  const x=setup();x.denyLock();assert.equal(x.post(x.payload).code,'OCUPADO');
  const y=setup();delete y.sheets['Hoja 1'];assert.equal(y.post(y.payload).code,'CONFIGURACION');
- const z=setup();z.props.CLAVE_ENTRADA='1234';assert.equal(z.c.registrarEntrada(REQUEST,'1234').code,'CONFIGURACION');
+ const z=setup();delete z.sheets['Hoja 1'];assert.equal(z.c.registrarEntrada(REQUEST).code,'CONFIGURACION');
 });
 test('migración explícita conserva asistencia e ingreso y rota folio anterior; es repetible',()=>{
  const x=setup();x.sheets['Hoja 1'].rows.push(['fecha','HS-001F','Familia Prueba','Sí',2,'','','ingreso','','']);
@@ -94,13 +97,18 @@ test('migración explícita conserva asistencia e ingreso y rota folio anterior;
 });
 test('todos los auxiliares son privados para google.script.run',()=>{
  const names=[...source.matchAll(/^function (\w+)\(/gm)].map(m=>m[1]);
- assert.deepEqual(names.filter(n=>!n.endsWith('_')),['doPost','doGet','registrarEntrada']);
+ assert.deepEqual(names.filter(n=>!n.endsWith('_')),['doPost','doGet','registrarEntrada','onOpen']);
+});
+test('abrir el menú no activa ni modifica invitaciones',()=>{
+ const x=setup();const before=JSON.stringify(x.sheets.Invitaciones.rows);
+ x.c.onOpen();assert.equal(x.triggers.length,0);
+ assert.equal(JSON.stringify(x.sheets.Invitaciones.rows),before);
 });
 test('revocar token o bajar cupo bloquea un pase ya emitido',()=>{
  const x=setup(),p=x.post(x.payload).pase;x.sheets.Invitaciones.rows[1][1]=1;
- assert.equal(x.c.registrarEntrada(p.folio,KEY).code,'PASE');
+ assert.equal(x.c.registrarEntrada(p.folio).code,'PASE');
  x.sheets.Invitaciones.rows[1][1]=2;x.sheets.Invitaciones.rows[1][2]='';
- assert.equal(x.c.registrarEntrada(p.folio,KEY).code,'PASE');assert.equal(x.get({i:TOKEN}).code,'INVITACION');
+ assert.equal(x.c.registrarEntrada(p.folio).code,'PASE');assert.equal(x.get({i:TOKEN}).code,'INVITACION');
 });
 test('tokens duplicados y migración con cupo insuficiente se detienen sin sobrescribir',()=>{
  const x=setup();x.sheets.Invitaciones.rows.push(['Otra Familia',2,TOKEN,'','']);assert.equal(x.post(x.payload).code,'CONFIGURACION');
@@ -126,18 +134,18 @@ test('tablero refleja confirmación y entrada; cambio del organizador actualiza 
  x.sheets.Invitaciones.rows[1][1]=4;
  x.c.alEditarInvitaciones_({source:{getId:()=>x.props.SPREADSHEET_ID},range:{getSheet:()=>({getName:()=> 'Invitaciones'}),getColumn:()=>2,getLastRow:()=>2}});
  const p=x.get({i:TOKEN}).pase;assert.equal(p.pases,4);assert.equal(x.sheets.Invitaciones.rows[1][7],4);
- x.c.registrarEntrada(p.folio,KEY);assert.equal(x.sheets.Invitaciones.rows[1][6],'Ya ingresó');
+ x.c.registrarEntrada(p.folio);assert.equal(x.sheets.Invitaciones.rows[1][6],'Ya ingresó');
 });
 test('cupo cero pausa la invitación y bloquea el acceso',()=>{
  const x=setup(),p=x.post(x.payload).pase;x.sheets.Invitaciones.rows[1][1]=0;x.c.generarEnlaces_();
- assert.equal(x.sheets.Invitaciones.rows[1][6],'Pausada');assert.equal(x.get({i:TOKEN}).code,'INVITACION');assert.equal(x.c.registrarEntrada(p.folio,KEY).code,'PASE');
+ assert.equal(x.sheets.Invitaciones.rows[1][6],'Pausada');assert.equal(x.get({i:TOKEN}).code,'INVITACION');assert.equal(x.c.registrarEntrada(p.folio).code,'PASE');
 });
 test('familias de 6, 7 y 9 reciben exactamente sus pases; 10 requiere corregir configuración',()=>{
  for(const count of [6,7,9]) {
   const x=setup();x.sheets.Invitaciones.rows[1][1]=count;
   assert.equal(x.get({i:TOKEN}).maximo,count);
   const p=x.post({...x.payload,pases:999}).pase;
-  assert.equal(p.pases,count);assert.equal(x.c.registrarEntrada(p.folio,KEY).ok,true);
+  assert.equal(p.pases,count);assert.equal(x.c.registrarEntrada(p.folio).ok,true);
  }
  const x=setup();x.sheets.Invitaciones.rows[1][1]=10;
  assert.equal(x.post(x.payload).code,'CONFIGURACION');
