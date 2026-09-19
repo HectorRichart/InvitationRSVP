@@ -1,7 +1,7 @@
 # Invitaciones automáticas y pases asignados
 
 **Tu trabajo habitual: escribir nombre y pases en la hoja y copiar el mensaje.**
-El invitado únicamente responde Sí o No. No puede elegir la cantidad de pases.
+El invitado responde Sí o No y deja su WhatsApp. No puede elegir la cantidad de pases.
 
 ## Activar esta actualización una sola vez
 
@@ -58,7 +58,7 @@ mensaje no lo envía automáticamente. No se necesita WhatsApp Business ni otro 
 El enlace sigue siendo el mismo si vuelves a actualizar la fila.
 
 Las confirmaciones actualizan G y H directamente desde el servidor. Los detalles
-(teléfono, mensaje, fecha, folio y entrada) siguen en la pestaña **Hoja 1**.
+(teléfono, fecha, folio y entrada) siguen en la pestaña **Hoja 1**.
 No hace falta abrir el editor para consultarlos.
 
 ## Cambiar algo o corregir un problema
@@ -127,3 +127,24 @@ sigue sujeto a sus cuotas y no hay envío masivo ni protección contra saturaci�
 Referencias de Google: [disparadores instalables](https://developers.google.com/apps-script/guides/triggers/installable),
 [propiedades](https://developers.google.com/apps-script/guides/properties),
 [implementación web](https://developers.google.com/apps-script/guides/web).
+
+## Nombres provisionales y cambios desde Google Sheets
+
+El enlace conserva el mismo token aunque cambies el nombre o los pases.
+En **Invitaciones**, A (**Nombre**) es lo que verá el invitado; B (**Maximo**)
+es la cantidad exacta que tú le asignas. En la hoja de esta boda, K
+(**Observaciones**) sirve para tus referencias internas y no se muestra al invitado.
+Por ejemplo, conserva «Juez PJF» en K y escribe en A el nombre o saludo que quieras
+mostrar. Cuando sepas cuántos pases asignar, cambia B. Si aún no está definido,
+puedes pausar con 0 y esperar a completar el cupo antes de enviar el enlace.
+
+Tras editar A/B, el disparador actualiza mensajes y confirmaciones existentes.
+Si no ocurre, usa **Boda → Actualizar enlaces y confirmaciones**. La persona
+verá los cambios al volver a abrir o recargar su enlace. Una imagen del pase ya
+descargada no cambia: debe descargarla de nuevo; el QR consulta el registro actual.
+
+El formulario ya no solicita comentarios y el servidor ignora ese campo si llega
+desde una página antigua. WhatsApp es obligatorio en nuevas solicitudes.
+La columna G de **Hoja 1** conserva los comentarios históricos, pero se oculta
+al activar la automatización y queda vacía en registros nuevos. No la elimines:
+se conserva la posición de las columnas de entrada y de identificación existentes.

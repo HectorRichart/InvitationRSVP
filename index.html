@@ -302,6 +302,23 @@
   </div>
 </section>
 
+<!-- ============ REGALOS ============ -->
+<section class="gifts-section pad-sm" id="regalos" aria-labelledby="giftsTitle">
+  <div class="wrap center">
+    <div class="gifts-card">
+      <div class="icon-orn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8h18v4H3zM5 12v9h14v-9M12 8v13"/><path d="M12 8H8a3 3 0 113-3l1 3zm0 0h4a3 3 0 10-3-3l-1 3z"/></svg></div>
+      <p class="eyebrow">Un detalle con amor</p>
+      <h2 class="display sec-title" id="giftsTitle">Tu presencia, nuestro <em>mejor regalo</em></h2>
+      <p class="sec-lead">Lo que más deseamos es compartir este día contigo. Si te gustaría tener un detalle con nosotros, contaremos con:</p>
+      <div class="gift-options">
+        <div><span aria-hidden="true">✉</span><h3>Buzón de dinero</h3><p>Un sobre con tus buenos deseos para esta nueva etapa.</p></div>
+        <div><span aria-hidden="true">♡</span><h3>Mesa de regalos</h3><p>Un detalle para acompañarnos en nuestro nuevo hogar.</p></div>
+      </div>
+      <p class="gifts-thanks">Gracias por ser parte de nuestra historia.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ RSVP ============ -->
 <section class="rsvp pad" id="rsvp">
   <div class="wrap">
@@ -343,21 +360,16 @@
         </div>
 
         <div class="field">
-          <label for="tel">WhatsApp <span style="text-transform:none;letter-spacing:0">(opcional)</span></label>
-          <input type="tel" id="tel" name="tel" maxlength="25" inputmode="tel" autocomplete="tel" placeholder="656 000 0000">
+          <label for="tel">WhatsApp</label>
+          <input type="tel" id="tel" name="tel" required maxlength="25" inputmode="tel" autocomplete="tel" placeholder="656 000 0000">
           <p class="hint">Solo por si necesitamos avisarte de algún cambio.</p>
-        </div>
-
-        <div class="field">
-          <label for="mensaje">Mensaje para nosotros <span style="text-transform:none;letter-spacing:0">(opcional)</span></label>
-          <textarea id="mensaje" name="mensaje" maxlength="1000" placeholder="Alergias, restricciones alimentarias o lo que quieras compartirnos"></textarea>
         </div>
 
         <button type="submit" class="btn solid" id="submitBtn" style="width:100%;justify-content:center">
           <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
           Confirmar asistencia
         </button>
-        <p class="privacy-note">Al confirmar, compartes estos datos con los novios para organizar la boda. Solo guardamos una copia de tu pase en este navegador; no guardamos aquí tu teléfono ni tu mensaje.</p>
+        <p class="privacy-note">Al confirmar, compartes estos datos con los novios para organizar la boda. Solo guardamos una copia de tu pase en este navegador; no guardamos aquí tu teléfono.</p>
         <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
         <button type="button" class="btn ghost" id="retryInvite" hidden>Volver a consultar</button>
       </form>
@@ -424,10 +436,6 @@
       <details>
         <summary>Perdí mi pase, ¿qué hago?</summary>
         <p>Abre de nuevo tu enlace privado, incluso desde otro teléfono: recuperaremos tu pase. Necesitas conexión a internet. Si perdiste el enlace, escríbenos para reenviártelo.</p>
-      </details>
-      <details>
-        <summary>¿Habrá mesa de regalos?</summary>
-        <p>Tu compañía es nuestro mejor regalo. Si deseas tener un detalle con nosotros, contaremos con mesa de regalos y lluvia de sobres.</p>
       </details>
     </div>
   </div>

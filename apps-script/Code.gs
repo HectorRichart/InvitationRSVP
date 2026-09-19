@@ -6,6 +6,8 @@ var AJUSTES = {
   HOJA: 'Hoja 1', INVITACIONES: 'Invitaciones', MAX_PASES: 9,
   TZ: 'America/Ciudad_Juarez', CIERRE: '2026-11-01'
 };
+// G conserva comentarios históricos para no desplazar folios e ingresos.
+// Las nuevas confirmaciones dejan G vacía; no se reciben ni guardan comentarios.
 var CABECERAS = ['Fecha','Folio','Nombre','Asiste','Pases','WhatsApp','Mensaje','Ingreso','Invitacion','Solicitud'];
 var CAB_INV = ['Nombre','Maximo','Token','Enlace','Folio anterior','Mensaje para enviar','Estado','Pases confirmados'];
 
@@ -33,7 +35,7 @@ function doPost(e) {
     if (filaUnica_(rows, 9, d.folio)) fallo_('SOLICITUD');
     var folio = nuevoFolio_(rows);
     var row = [new Date(), folio, textoHoja_(invitacion.nombre), d.asiste, cantidad,
-      textoHoja_(d.tel || ''), textoHoja_(d.mensaje || ''), '', d.invitacion, d.folio];
+      textoHoja_(d.tel), '', '', d.invitacion, d.folio];
     sheet.appendRow(row);
     SpreadsheetApp.flush();
     actualizarEstadoSeguro_(d.invitacion, row);
@@ -101,9 +103,8 @@ function validarDatos_(d) {
   if (d.asiste !== 'Sí' && d.asiste !== 'No') fallo_('DATOS');
   // d.pases se ignora, incluso si alguien manipula el navegador.
   if (d.nombre !== undefined && (typeof d.nombre !== 'string' || d.nombre.length > 100)) fallo_('DATOS');
-  if (d.tel !== undefined && (typeof d.tel !== 'string' || d.tel.length > 25)) fallo_('DATOS');
+  if (typeof d.tel !== 'string' || !d.tel.trim() || d.tel.length > 25) fallo_('DATOS');
   if (d.tel && (!/^[+\d\s().-]+$/.test(d.tel) || d.tel.replace(/\D/g,'').length < 7)) fallo_('DATOS');
-  if (d.mensaje !== undefined && (typeof d.mensaje !== 'string' || d.mensaje.length > 1000)) fallo_('DATOS');
 }
 function cerrado_() { return Utilities.formatDate(new Date(), AJUSTES.TZ, 'yyyy-MM-dd') > AJUSTES.CIERRE; }
 function tokenValido_(s) { return typeof s === 'string' && /^[a-f0-9]{32}$/.test(s); }
@@ -194,6 +195,7 @@ function prepararHojas_() {
     if(actual.some(function(v,i){return v!=='' && v!==pair[1][i];})) throw new Error('Revisa encabezados de '+pair[0]);
     sheet.getRange(1,1,1,pair[1].length).setValues([pair[1]]);
     sheet.setFrozenRows(1);
+    if(pair[0]===AJUSTES.HOJA) sheet.hideColumns(7);
   });
 }
 

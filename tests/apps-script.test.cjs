@@ -18,6 +18,7 @@ function setup(){
     };}
     appendRow(r){this.rows.push(r);}
     setFrozenRows(){}
+    hideColumns(){}
   }
   const props={SPREADSHEET_ID:'test-sheet',URL_INVITACION:'https://example.com/boda/'};
   const book={getSheetByName:n=>sheets[n],insertSheet:n=>sheets[n]=new Sheet([])};
@@ -31,7 +32,7 @@ function setup(){
     HtmlService:{createHtmlOutput:html=>({html,setTitle(){return this;},addMetaTag(){return this;}})}};
   vm.createContext(context);vm.runInContext(source,context);context.prepararHojas_();
   sheets.Invitaciones.rows.push(['Familia Prueba',2,TOKEN,'','']);
-  const payload={invitacion:TOKEN,folio:REQUEST,nombre:'Nombre no confiable',asiste:'Sí',pases:2,tel:'',mensaje:''};
+  const payload={invitacion:TOKEN,folio:REQUEST,nombre:'Nombre no confiable',asiste:'Sí',pases:2,tel:'6560000000'};
   return {c:context,sheets,props,triggers,payload,post:d=>JSON.parse(context.doPost({postData:{contents:JSON.stringify(d)}}).text),get:q=>JSON.parse(context.doGet({parameter:q}).text),setDate:d=>date=d,denyLock:()=>available=false,isLocked:()=>acquired};
 }
 test('requiere enlace autorizado; no confía en nombre ni cupo del cliente',()=>{
@@ -52,7 +53,7 @@ test('personas con el mismo nombre conservan invitaciones separadas',()=>{
  assert.equal(b.ok,true);assert.notEqual(a.pase.folio,b.pase.folio);
 });
 test('rechaza tipos, pases, campos enormes y JSON incorrecto',()=>{
- const x=setup();for(const patch of [{asiste:'tal vez'},{mensaje:'x'.repeat(1001)},{tel:{}},{tel:'abcdefg'},{invitacion:null}]) assert.equal(x.post({...x.payload,...patch}).ok,false);
+ const x=setup();for(const patch of [{asiste:'tal vez'},{tel:''},{tel:undefined},{tel:{}},{tel:'abcdefg'},{invitacion:null}]) assert.equal(x.post({...x.payload,...patch}).ok,false);
  assert.equal(JSON.parse(x.c.doPost({postData:{contents:'{bad'}}).text).ok,false);
  assert.equal(JSON.parse(x.c.doPost({}).text).ok,false);
  assert.equal(x.sheets['Hoja 1'].rows.length,1);
@@ -80,7 +81,7 @@ test('escape HTML, fórmulas literales y ninguna estadística pública',()=>{
  const p=x.post({...x.payload,mensaje:'=1+1',tel:'+526560000000'}).pase;
  const html=x.c.doGet({parameter:{f:p.folio}}).html;
  assert(!html.includes('<img src=x'));assert(html.includes('&lt;img'));
- assert.equal(x.sheets['Hoja 1'].rows[1][6],"'=1+1");assert.equal(x.sheets['Hoja 1'].rows[1][5],"'+526560000000");
+ assert.equal(x.sheets['Hoja 1'].rows[1][6],'');assert.equal(x.sheets['Hoja 1'].rows[1][5],"'+526560000000");
  assert.deepEqual(Object.keys(x.get({})).sort(),['ok','servicio']);
 });
 test('errores de bloqueo/configuración no exponen detalles ni escriben otra pestaña',()=>{
@@ -161,4 +162,16 @@ test('prepara antes de publicar y genera enlaces después sin perder tokens ni c
  x.props.URL_INVITACION='https://example.com/publicada/';x.c.generarEnlaces_();
  assert.equal(r[2],TOKEN);assert.equal(r[3],'https://example.com/publicada/?i='+TOKEN);
  assert(r[5].includes(r[3]));assert.equal(r[11],1);
+});
+
+test('editar nombre y pases conserva enlace, notas privadas, folio y confirmación',()=>{
+ const x=setup();x.sheets.Invitaciones.rows[1][10]='Etiqueta interna';x.c.generarEnlaces_();
+ const link=x.sheets.Invitaciones.rows[1][3];const folio=x.post(x.payload).pase.folio;
+ x.sheets.Invitaciones.rows[1][0]='Estimado invitado';x.sheets.Invitaciones.rows[1][1]=3;
+ x.c.alEditarInvitaciones_({source:{getId:()=>x.props.SPREADSHEET_ID},range:{getSheet:()=>({getName:()=> 'Invitaciones'}),getColumn:()=>1,getLastRow:()=>2}});
+ const result=x.get({i:TOKEN});assert.equal(result.nombre,'Estimado invitado');assert.equal(result.maximo,3);
+ assert.equal(result.pase.nombre,'Estimado invitado');assert.equal(result.pase.pases,3);assert.equal(result.pase.folio,folio);
+ assert.equal(x.sheets.Invitaciones.rows[1][3],link);assert.equal(x.sheets.Invitaciones.rows[1][10],'Etiqueta interna');
+ assert(x.sheets.Invitaciones.rows[1][5].includes('Estimado invitado'));
+ const html=x.c.doGet({parameter:{f:folio}}).html;assert(html.includes('Estimado invitado'));assert(!html.includes('Etiqueta interna'));
 });

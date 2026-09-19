@@ -245,11 +245,9 @@ form.addEventListener('submit', async (e) => {
   }
 
   const tel = document.getElementById('tel').value.trim();
-  const mensaje = document.getElementById('mensaje').value.trim();
-  if (tel.length > 25 || (tel && (!/^[+\d\s().-]+$/.test(tel) || tel.replace(/\D/g, '').length < 7))
-      || mensaje.length > 1000) {
+  if (!tel || tel.length > 25 || !/^[+\d\s().-]+$/.test(tel) || tel.replace(/\D/g, '').length < 7) {
     msg.className = 'form-msg err';
-    msg.textContent = 'Revisa tu teléfono (al menos 7 dígitos) y la longitud del mensaje.';
+    msg.textContent = 'Déjanos tu WhatsApp con al menos 7 dígitos para poder contactarte.';
     return;
   }
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(CONFIG.ENDPOINT)) {
@@ -257,7 +255,7 @@ form.addEventListener('submit', async (e) => {
     msg.textContent = 'La confirmación todavía no está disponible. Contacta a los novios.';
     return;
   }
-  const values = {invitacion: invitationToken, nombre, asiste, tel, mensaje};
+  const values = {invitacion: invitationToken, nombre, asiste, tel};
   const signature = JSON.stringify(values);
   if (!pendingSubmission || pendingSubmission.signature !== signature) {
     pendingSubmission = {signature, payload: {...values, folio: folioFor(), enviado: new Date().toISOString()}};
