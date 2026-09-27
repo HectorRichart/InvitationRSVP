@@ -5,7 +5,7 @@ const CONFIG = {
   // Pega aquí la URL del Web App de Google Apps Script (termina en /exec).
   // Sin endpoint no se emiten confirmaciones ni pases.
   ENDPOINT: "https://script.google.com/macros/s/AKfycbxEkV985Kzv372ajrfXNi51criJ_karnNJKfR0_Z3AZr4Gvmx7Z95HlQxTMFKdf9WaT_w/exec",
-  FECHA_EVENTO: "2026-11-07T17:00:00-07:00",  // ceremonia
+  FECHA_EVENTO: "2026-11-07T16:00:00-07:00",  // ceremonia
   MAX_PASES: 9,
   LS_KEY: "hs2026-pase"                        // dónde se guarda el pase en el celular
 };
@@ -186,11 +186,11 @@ window.addEventListener('resize', revealCheck);
 
 /* ---------- calendario ---------- */
 function calendarUrl(){
-  const start = '20261107T170000';
+  const start = '20261107T160000';
   const end   = '20261108T020000';
   const text  = encodeURIComponent('Boda de Sofía y Héctor');
   const loc   = encodeURIComponent('Parroquia María Reina del Universo, C. Lucero s/n, Parajes del Sol, Juárez, Chih.');
-  const det   = encodeURIComponent('Ceremonia 5:00 p.m. en la Parroquia María Reina del Universo. Recepción 9:00 p.m. en Jardín Terraza Arjeri. Vestimenta: formal.');
+  const det   = encodeURIComponent('Ceremonia 4:00 p.m. en la Parroquia María Reina del Universo. Recepción 9:00 p.m. en Jardín Terraza Arjeri. Vestimenta: formal.');
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${det}&location=${loc}&ctz=America/Ciudad_Juarez`;
 }
 ['calBtn','calBtn2'].forEach(id => {

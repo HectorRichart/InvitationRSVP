@@ -15,7 +15,7 @@ Para previsualizar: `python3 -m http.server 8765`, y abre `http://localhost:8765
 - Contenido, nombres, direcciones y horarios: `index.html`.
 - Colores y diseño: `assets/styles.css`.
 - Endpoint y fecha de cuenta regresiva: `CONFIG` al principio de `assets/app.js`.
-- Calendario descargable: `boda-sofia-hector.ics`. Si cambias horarios, actualiza también `calendarUrl()` en JavaScript y las fechas visibles en HTML. El archivo usa UTC: 17:00 en Ciudad Juárez el 7 de noviembre corresponde a 00:00 UTC del día 8.
+- Calendario descargable: `boda-sofia-hector.ics`. Si cambias horarios, actualiza también `calendarUrl()` en JavaScript y las fechas visibles en HTML. El archivo usa UTC: 16:00 en Ciudad Juárez el 7 de noviembre corresponde a 23:00 UTC del mismo día.
 - Enlaces privados: se generan en la pestaña `Invitaciones` de Google siguiendo `apps-script/README.md`.
 
 ## Confirmaciones seguras
