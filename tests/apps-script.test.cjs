@@ -44,7 +44,7 @@ test('requiere enlace autorizado; no confía en nombre ni cupo del cliente',()=>
 test('una confirmación por invitación; reintentos no sobrescriben; recuperación después del cierre',()=>{
  const x=setup(),first=x.post(x.payload);
  assert.deepEqual(x.post({...x.payload,asiste:'No',pases:0}).pase,first.pase);
- x.setDate('2026-11-02');assert.deepEqual(x.post(x.payload).pase,first.pase);
+ x.setDate('2026-11-08');assert.deepEqual(x.post(x.payload).pase,first.pase);
  assert.deepEqual(x.get({i:TOKEN}).pase,first.pase);assert.equal(x.sheets['Hoja 1'].rows.length,2);
 });
 test('personas con el mismo nombre conservan invitaciones separadas',()=>{
@@ -58,9 +58,9 @@ test('rechaza tipos, pases, campos enormes y JSON incorrecto',()=>{
  assert.equal(JSON.parse(x.c.doPost({}).text).ok,false);
  assert.equal(x.sheets['Hoja 1'].rows.length,1);
 });
-test('fecha límite: permite el 1 de noviembre, rechaza nuevas confirmaciones el día 2',()=>{
- const x=setup();x.setDate('2026-11-02');assert.equal(x.post(x.payload).code,'CERRADO');
- x.setDate('2026-11-01');assert.equal(x.post(x.payload).ok,true);
+test('fecha límite: permite el 7 de noviembre, rechaza nuevas confirmaciones el día 8',()=>{
+ const x=setup();x.setDate('2026-11-08');assert.equal(x.post(x.payload).code,'CERRADO');
+ x.setDate('2026-11-07');assert.equal(x.post(x.payload).ok,true);
 });
 test('entrada sin clave requiere folio válido; escanear no registra y repetir no cambia fecha',()=>{
  const x=setup(),p=x.post(x.payload).pase;

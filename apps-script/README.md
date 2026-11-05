@@ -118,7 +118,7 @@ Verifica una invitación de prueba desde el sitio publicado antes de enviar la l
 nombre/cupo fijo, confirmación, actualización de G/H, descarga y entrada sin clave.
 Los tests locales usan servicios simulados y no modifican tu hoja.
 
-El plazo incluye el 1 de noviembre de 2026, hora de Ciudad Juárez. Después se pueden
+El plazo incluye el 7 de noviembre de 2026, hora de Ciudad Juárez. Después se pueden
 recuperar confirmaciones pero no crear nuevas. El registro de entrada corresponde
 al grupo completo, no a accesos parciales. La validación necesita internet.
 El enlace es privado: quien lo reciba puede confirmar esa invitación. Apps Script

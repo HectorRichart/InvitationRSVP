@@ -32,7 +32,7 @@ antiguos `?n=...&p=...` dejan de autorizar el RSVP. La lista privada se guarda e
 Las confirmaciones no se sobrescriben por nombre. Los pases se recuperan desde
 el servidor. Al escanear el QR, recepción pulsa «Registrar entrada» sin contraseña. No se
 publican estadísticas. La primera confirmación requiere el enlace privado y
-respeta el cierre del 1 de noviembre de 2026, inclusive, hora de Ciudad Juárez.
+respeta el cierre del 7 de noviembre de 2026, inclusive, hora de Ciudad Juárez.
 
 La CSP permite scripts del propio sitio, mapas de Google y las fuentes existentes.
 `no-referrer` evita enviar los tokens a otros sitios como referencia. `noindex`

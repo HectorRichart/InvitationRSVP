@@ -4,7 +4,7 @@
  */
 var AJUSTES = {
   HOJA: 'Hoja 1', INVITACIONES: 'Invitaciones', MAX_PASES: 9,
-  TZ: 'America/Ciudad_Juarez', CIERRE: '2026-11-01'
+  TZ: 'America/Ciudad_Juarez', CIERRE: '2026-11-07'
 };
 // G conserva comentarios históricos para no desplazar folios e ingresos.
 // Las nuevas confirmaciones dejan G vacía; no se reciben ni guardan comentarios.
